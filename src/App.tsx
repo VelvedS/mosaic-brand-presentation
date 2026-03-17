@@ -222,17 +222,34 @@ export default function App() {
 
   // PART 2: THE DEEPER MEANING SERIES (11-20)
 
-  // 11. The Lingua Franca (Client's Idea: "Mosaic" in multiple languages forming a circle)
+  // 11. The Lingua Franca (Client's Idea: "Mosaic" in multiple languages forming a circle) - REDESIGNED
   const Logo11 = () => (
-    <svg viewBox="0 0 120 120" className="w-28 h-28 sm:w-36 sm:h-36">
-      <path id="languageCircle" d="M 60 15 A 45 45 0 1 1 59.9 15" fill="none" />
-      <text fontSize="6" fontStyle="italic" fill={currentText} letterSpacing="2.5" className="uppercase opacity-80" style={{ fontFamily: fontThemes.editorial.secondary }}>
+    <svg viewBox="0 0 120 120" className="w-28 h-28 sm:w-36 sm:h-36 drop-shadow-sm">
+      {/* Outer elegant framing rings */}
+      <circle cx="60" cy="60" r="54" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
+      <circle cx="60" cy="60" r="50" fill="none" stroke={colors.brass} strokeWidth="1" />
+      
+      {/* The Text Path Ring */}
+      <path id="languageCircle" d="M 60 16 A 44 44 0 1 1 59.9 16" fill="none" />
+      <text fontSize="5.5" fontStyle="normal" fill={currentText} letterSpacing="3" className="uppercase opacity-70" style={{ fontFamily: fontThemes.modern.secondary }}>
         <textPath href="#languageCircle" startOffset="0%">
           MOSAICO • MOSAÏQUE • MOSAIK • モザイク • فسيفساء • MOSAICO • 
         </textPath>
       </text>
-      <circle cx="60" cy="60" r="32" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-      <text x="60" y="64" fontSize="16" textAnchor="middle" fill={currentText} style={{ fontFamily: fontThemes.editorial.primary }} letterSpacing="1">M</text>
+      
+      {/* Inner framing */}
+      <circle cx="60" cy="60" r="34" fill="none" stroke={colors.brass} strokeWidth="0.5" strokeDasharray="2 4" />
+      <circle cx="60" cy="60" r="28" fill="none" stroke={currentText} strokeWidth="1" opacity="0.8" />
+      
+      {/* Centerpiece: Elegant M with a delicate horizontal strike */}
+      <text x="60" y="68" fontSize="24" textAnchor="middle" fill={currentText} style={{ fontFamily: fontThemes.editorial.primary }} letterSpacing="1">M</text>
+      <path d="M 40 60 L 80 60" stroke={colors.terracotta} strokeWidth="0.5" opacity="0.8" />
+      
+      {/* Subtle corner compass marks */}
+      <circle cx="60" cy="10" r="1.5" fill={colors.terracotta} />
+      <circle cx="60" cy="110" r="1.5" fill={colors.terracotta} />
+      <circle cx="10" cy="60" r="1.5" fill={colors.brass} />
+      <circle cx="110" cy="60" r="1.5" fill={colors.brass} />
     </svg>
   );
 
@@ -332,6 +349,86 @@ export default function App() {
     );
   };
 
+  // 21. The Golden Spiral (Mathematical perfection)
+  const Logo21 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 50 10 A 40 40 0 0 1 90 50 A 25 25 0 0 1 65 75 A 15 15 0 0 1 50 60 A 5 5 0 0 1 55 55" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <path d="M 20 90 L 20 20 L 50 50 L 80 20 L 80 90" fill="none" stroke={currentText} strokeWidth="1" opacity="0.5" strokeLinejoin="miter" />
+    </svg>
+  );
+
+  // 22. The Parallel Horizon (Ultimate less-is-more)
+  const Logo22 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <line x1="20" y1="45" x2="70" y2="45" stroke={currentText} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="30" y1="55" x2="80" y2="55" stroke={colors.brass} strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="85" cy="45" r="2" fill={colors.terracotta} />
+    </svg>
+  );
+
+  // 23. The Fluted Glass (Bistro architecture)
+  const Logo23 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <rect x="30" y="20" width="1" height="60" fill={currentText} opacity="0.3" />
+      <rect x="40" y="15" width="1" height="70" fill={currentText} opacity="0.6" />
+      <rect x="50" y="10" width="1.5" height="80" fill={colors.brass} />
+      <rect x="60" y="15" width="1" height="70" fill={currentText} opacity="0.6" />
+      <rect x="70" y="20" width="1" height="60" fill={currentText} opacity="0.3" />
+      <circle cx="50" cy="50" r="45" fill="none" stroke={currentText} strokeWidth="0.5" strokeDasharray="1 3" />
+    </svg>
+  );
+
+  // 24. The Empty Canvas (Extreme negative space)
+  const Logo24 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 65 75 L 65 55 L 75 65 L 85 55 L 85 75" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <circle cx="25" cy="35" r="1.5" fill={colors.terracotta} />
+    </svg>
+  );
+
+  // 25. The Astrolabe (Celestial Navigation)
+  const Logo25 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="40" fill="none" stroke={currentText} strokeWidth="1" />
+      <circle cx="50" cy="50" r="30" fill="none" stroke={colors.brass} strokeWidth="0.5" strokeDasharray="4 4" />
+      <path d="M 50 10 L 50 90 M 10 50 L 90 50" stroke={currentText} strokeWidth="0.5" opacity="0.5" />
+      <path d="M 20 20 L 80 80" stroke={colors.terracotta} strokeWidth="1" />
+      <circle cx="80" cy="80" r="2" fill={currentText} />
+      <circle cx="50" cy="50" r="3" fill={colors.brass} />
+    </svg>
+  );
+
+  // 26. The Venn Tapestry (Food, Drink, Social)
+  const Logo26 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="40" r="25" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <circle cx="35" cy="65" r="25" fill="none" stroke={currentText} strokeWidth="1" opacity="0.7" />
+      <circle cx="65" cy="65" r="25" fill="none" stroke={colors.terracotta} strokeWidth="1" opacity="0.7" />
+      <path d="M 50 48 L 56 60 L 44 60 Z" fill={currentText} opacity="0.8" />
+    </svg>
+  );
+
+  // 27. The Ripple Effect (Cultural Impact)
+  const Logo27 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="30" cy="40" r="4" fill={colors.terracotta} />
+      <circle cx="30" cy="40" r="15" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <circle cx="30" cy="40" r="30" fill="none" stroke={currentText} strokeWidth="1" opacity="0.7" />
+      <circle cx="30" cy="40" r="50" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.4" />
+      <path d="M 70 80 L 70 60 L 80 70 L 90 60 L 90 80" fill="none" stroke={colors.brass} strokeWidth="1.5" strokeLinejoin="miter" />
+    </svg>
+  );
+
+  // 28. The Fragmented Enso (Organic Evolution)
+  const Logo28 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 50 15 A 35 35 0 1 1 25 25" fill="none" stroke={currentText} strokeWidth="2" strokeLinecap="round" />
+      <path d="M 20 30 A 35 35 0 0 1 60 12" fill="none" stroke={colors.brass} strokeWidth="1" strokeLinecap="round" />
+      <path d="M 50 40 L 50 60 M 40 50 L 60 50" stroke={colors.terracotta} strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+
   const concepts: Array<{ id: number; title: string; desc: string; component: React.ReactNode; layout: 'horizontal' | 'vertical' | 'none'; fontTheme: keyof typeof fontThemes }> = [
     // Simple Series
     { id: 1, title: 'The Elegant Monogram', desc: 'An ultra-thin, sophisticated "M". Relies entirely on elegant proportions and negative space, completely avoiding cartoonish thickness.', component: <Logo1 />, layout: 'vertical', fontTheme: 'editorial' },
@@ -344,18 +441,26 @@ export default function App() {
     { id: 8, title: 'Bistro & Social', desc: 'The overlap. Two perfect circles intersecting to create a third space. Represents the dual nature of your day-to-night business.', component: <Logo8 />, layout: 'horizontal', fontTheme: 'heritage' },
     { id: 9, title: 'The Global Horizon', desc: 'The simplest abstraction of a rising sun over the horizon. Represents the dawn of a new cultural hub in Milwaukee.', component: <Logo9 />, layout: 'vertical', fontTheme: 'artdeco' },
     { id: 10, title: 'The Evening Star', desc: 'A sophisticated four-pointed star representing the evening social lounge and the highest standard of culinary excellence.', component: <Logo10 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 11, title: 'The Golden Spiral', desc: 'Mathematical perfection. A delicate Fibonacci spiral intersecting a subtle "M". Unbelievably refined and visually harmonious.', component: <Logo21 />, layout: 'horizontal', fontTheme: 'avantgarde' },
+    { id: 12, title: 'The Parallel Horizon', desc: 'Two stacked, off-center lines representing an elegant table setting or horizon. The ultimate expression of "less is more".', component: <Logo22 />, layout: 'vertical', fontTheme: 'modern' },
+    { id: 13, title: 'The Fluted Glass', desc: 'Vertical lines inspired by premium fluted bistro glassware and the historic Cathedral organs, fading beautifully at the edges.', component: <Logo23 />, layout: 'vertical', fontTheme: 'heritage' },
+    { id: 14, title: 'The Empty Canvas', desc: 'A massive, thin circle with a tiny, pristine monogram pushed to the edge. Embraces extreme negative space for a gallery-like feel.', component: <Logo24 />, layout: 'vertical', fontTheme: 'editorial' },
     
     // Deeper Meaning Series
-    { id: 11, title: 'The Lingua Franca', desc: 'Directly from your feedback: The word "Mosaic" translated into French, German, Japanese, and Arabic, forming a unified global circle.', component: <Logo11 />, layout: 'none', fontTheme: 'editorial' },
-    { id: 12, title: 'The Gathering Table', desc: 'An abstract, overhead view of paths converging at a round table. A subtle nod to the "living room" community aspect of the business plan.', component: <Logo12 />, layout: 'horizontal', fontTheme: 'modern' },
-    { id: 13, title: 'Woven Tapestry', desc: 'Different geometric threads crossing over one another to weave a unified fabric. Symbolizes the blending of global cultures.', component: <Logo13 />, layout: 'vertical', fontTheme: 'heritage' },
-    { id: 14, title: 'The Compass Rose', desc: 'A deeply meaningful symbol of travel, direction, and worldly origin, executed in a refined, high-end nautical aesthetic.', component: <Logo14 />, layout: 'vertical', fontTheme: 'editorial' },
-    { id: 15, title: 'The Convergence', desc: 'Eight lines arriving from all directions to meet at a central, golden focal point. Represents Cathedral Square as the meeting place.', component: <Logo15 />, layout: 'horizontal', fontTheme: 'artdeco' },
-    { id: 16, title: 'The Meridian Globe', desc: 'A sophisticated, abstract take on the globe using only delicate meridian lines, stripping away the bulky "clipart" map shapes.', component: <Logo16 />, layout: 'vertical', fontTheme: 'editorial' },
-    { id: 17, title: 'The Cultural Knot', desc: 'Inspired by global knotwork (Celtic, Asian, Nordic). Two endless loops entwined, representing inseparable human connection.', component: <Logo17 />, layout: 'horizontal', fontTheme: 'heritage' },
-    { id: 18, title: 'The Human Element', desc: 'Lines that mimic both a topographical map and a human fingerprint. A meaningful reminder that the food and music are rooted in people.', component: <Logo18 />, layout: 'vertical', fontTheme: 'avantgarde' },
-    { id: 19, title: 'Day & Night', desc: 'Overlapping phases of the sun and moon. Meaningfully visualizes the transition from daytime Bistro to evening Social lounge.', component: <Logo19 />, layout: 'vertical', fontTheme: 'modern' },
-    { id: 20, title: 'The True Mosaic', desc: 'Instead of blocky tiles, a true mosaic of dozens of distinct, scattered points coming together to form a unified sphere.', component: <Logo20 />, layout: 'horizontal', fontTheme: 'artdeco' }
+    { id: 15, title: 'The Lingua Franca', desc: 'Directly from your feedback: The word "Mosaic" translated into French, German, Japanese, and Arabic, forming a unified global circle.', component: <Logo11 />, layout: 'none', fontTheme: 'editorial' },
+    { id: 16, title: 'The Gathering Table', desc: 'An abstract, overhead view of paths converging at a round table. A subtle nod to the "living room" community aspect of the business plan.', component: <Logo12 />, layout: 'horizontal', fontTheme: 'modern' },
+    { id: 17, title: 'Woven Tapestry', desc: 'Different geometric threads crossing over one another to weave a unified fabric. Symbolizes the blending of global cultures.', component: <Logo13 />, layout: 'vertical', fontTheme: 'heritage' },
+    { id: 18, title: 'The Compass Rose', desc: 'A deeply meaningful symbol of travel, direction, and worldly origin, executed in a refined, high-end nautical aesthetic.', component: <Logo14 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 19, title: 'The Convergence', desc: 'Eight lines arriving from all directions to meet at a central, golden focal point. Represents Cathedral Square as the meeting place.', component: <Logo15 />, layout: 'horizontal', fontTheme: 'artdeco' },
+    { id: 20, title: 'The Meridian Globe', desc: 'A sophisticated, abstract take on the globe using only delicate meridian lines, stripping away the bulky "clipart" map shapes.', component: <Logo16 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 21, title: 'The Cultural Knot', desc: 'Inspired by global knotwork (Celtic, Asian, Nordic). Two endless loops entwined, representing inseparable human connection.', component: <Logo17 />, layout: 'horizontal', fontTheme: 'heritage' },
+    { id: 22, title: 'The Human Element', desc: 'Lines that mimic both a topographical map and a human fingerprint. A meaningful reminder that the food and music are rooted in people.', component: <Logo18 />, layout: 'vertical', fontTheme: 'avantgarde' },
+    { id: 23, title: 'Day & Night', desc: 'Overlapping phases of the sun and moon. Meaningfully visualizes the transition from daytime Bistro to evening Social lounge.', component: <Logo19 />, layout: 'vertical', fontTheme: 'modern' },
+    { id: 24, title: 'The True Mosaic', desc: 'Instead of blocky tiles, a true mosaic of dozens of distinct, scattered points coming together to form a unified sphere.', component: <Logo20 />, layout: 'horizontal', fontTheme: 'artdeco' },
+    { id: 25, title: 'The Astrolabe', desc: 'Concentric circles and precise celestial markings. A nod to timeless navigation and the international, worldly aspect of the menu.', component: <Logo25 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 26, title: 'The Venn Tapestry', desc: 'Three intersecting rings representing food, drink, and social life, forming a unified, central "shard" in the negative space.', component: <Logo26 />, layout: 'horizontal', fontTheme: 'artdeco' },
+    { id: 27, title: 'The Ripple Effect', desc: 'Concentric ripples radiating from a single terracotta drop. Showcases how a single great space can influence the entire culture around it.', component: <Logo27 />, layout: 'vertical', fontTheme: 'avantgarde' },
+    { id: 28, title: 'The Fragmented Enso', desc: 'A deconstructed, perfect circle. Represents the organic, ever-evolving nature of culinary arts and human social connection.', component: <Logo28 />, layout: 'vertical', fontTheme: 'modern' }
   ];
 
   return (
@@ -373,7 +478,7 @@ export default function App() {
           The Mosaic Concepts
         </h1>
         <p className="max-w-3xl text-lg md:text-xl opacity-70 font-light mb-12 leading-relaxed">
-          Exploring 20 entirely new, elevated visual identities. Moving away from literal illustrations, we are focusing on two distinct directions: <strong className="font-semibold">hyper-minimalist elegance</strong> and <strong className="font-semibold">thoughtful, deeper symbolism.</strong>
+          Exploring 28 entirely new, elevated visual identities. Moving away from literal illustrations, we are focusing on two distinct directions: <strong className="font-semibold">hyper-minimalist elegance</strong> and <strong className="font-semibold">thoughtful, deeper symbolism.</strong>
         </p>
 
         {/* Theme Toggle */}
@@ -493,7 +598,7 @@ export default function App() {
           <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">Hyper-minimalist concepts relying on elegant proportions, very thin lines, and negative space to convey a high-end, established presence.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {concepts.slice(0, 10).map((concept) => (
+          {concepts.slice(0, 14).map((concept) => (
             <div 
               key={concept.id}
               className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden"
@@ -541,7 +646,7 @@ export default function App() {
           <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">Thoughtful, symbolic designs exploring global convergence, human connection, and culture without relying on literal "clipart" imagery.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {concepts.slice(10, 20).map((concept) => (
+          {concepts.slice(14, 28).map((concept) => (
             <div 
               key={concept.id}
               className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden"
