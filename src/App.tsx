@@ -3,37 +3,89 @@ import { Moon, Sun, ArrowRight, CheckCircle2, Globe2, Type, Palette } from 'luci
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeScheme, setActiveScheme] = useState<'midnight' | 'emerald' | 'onyx'>('midnight');
 
-  // Core Brand Colors based on the provided image and business plan
+  // NEW SOPHISTICATED BRAND COLOR SCHEMES
+  const allSchemes = {
+    midnight: {
+      id: 'midnight',
+      label: 'Midnight Brass',
+      primary: '#1A2430', // Deep Navy
+      accent1: '#C5A059', // Brass
+      accent2: '#A85A46', // Terracotta
+      darkBg: '#12171E',
+      lightBg: '#F7F5F0',
+      names: { primary: 'Midnight Navy', accent1: 'Burnished Brass', accent2: 'Terracotta', lightBg: 'Warm Sand' },
+      desc: { primary: 'Deep, mysterious background.', accent1: 'Premium metallic accent.', accent2: 'Warm culinary earth tone.', lightBg: 'Clean, elegant canvas.' }
+    },
+    emerald: {
+      id: 'emerald',
+      label: 'Emerald Noir',
+      primary: '#0F291E', // Emerald Noir
+      accent1: '#D4AF37', // Champagne Gold
+      accent2: '#722F37', // Bordeaux Red
+      darkBg: '#0A1C14',
+      lightBg: '#FAF9F6',
+      names: { primary: 'Emerald Noir', accent1: 'Champagne Gold', accent2: 'Bordeaux Red', lightBg: 'Parchment' },
+      desc: { primary: 'Classic, old-world bistro depth.', accent1: 'Luxurious and refined metallic.', accent2: 'Rich, wine-inspired accent.', lightBg: 'Soft, classic off-white.' }
+    },
+    onyx: {
+      id: 'onyx',
+      label: 'Onyx & Copper',
+      primary: '#1C1C1E', // Onyx
+      accent1: '#B87333', // Copper
+      accent2: '#5C747A', // Slate Blue
+      darkBg: '#121214',
+      lightBg: '#F4F4F2',
+      names: { primary: 'Onyx Black', accent1: 'Warm Copper', accent2: 'Slate Blue', lightBg: 'Ivory Ash' },
+      desc: { primary: 'Industrial, chic, modern depth.', accent1: 'Warm, inviting metallic.', accent2: 'Cool, sophisticated contrast.', lightBg: 'Crisp, contemporary canvas.' }
+    }
+  };
+
+  const active = allSchemes[activeScheme];
+
+  // Map the active scheme to the existing color variables so the SVGs don't break
   const colors = {
-    teal: '#255855',
-    orange: '#CD6B32',
-    gold: '#ECA843',
-    brown: '#7C3A2B',
-    darkBg: '#0f2926',
-    lightBg: '#F9F8F6',
-    darkText: '#333333',
-    lightText: '#F1EDE4',
+    midnight: active.primary,
+    brass: active.accent1,
+    terracotta: active.accent2,
+    sage: '#6B7A68', // Kept as fallback if needed
+    darkBg: active.darkBg,
+    lightBg: active.lightBg,
+    darkText: active.primary,
+    lightText: active.lightBg,
   };
 
   const currentBg = isDarkMode ? colors.darkBg : colors.lightBg;
   const currentText = isDarkMode ? colors.lightText : colors.darkText;
 
+  // NEW FONT THEMES FOR VARIABILITY
+  const fontThemes = {
+    editorial: { primary: "'Didot', 'Bodoni MT', 'Playfair Display', serif", secondary: "'Montserrat', sans-serif" },
+    heritage: { primary: "'Garamond', 'Baskerville', 'Times New Roman', serif", secondary: "'Avenir', 'Helvetica Neue', sans-serif" },
+    artdeco: { primary: "'Futura', 'Trebuchet MS', sans-serif", secondary: "'Space Mono', monospace" },
+    modern: { primary: "'Montserrat', 'Helvetica Neue', sans-serif", secondary: "'Avenir', sans-serif" },
+    avantgarde: { primary: "'Space Mono', 'Courier New', monospace", secondary: "'Helvetica', sans-serif" }
+  };
+
   interface WordmarkProps {
     layout?: 'vertical' | 'horizontal' | 'inline' | 'none';
     className?: string;
+    theme?: keyof typeof fontThemes;
   }
 
-  // Reusable Wordmark Component to keep typography consistent
-  const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '' }) => {
+  // Refined, more elegant Wordmark Component with dynamic typography
+  const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '', theme = 'editorial' }) => {
+    const { primary, secondary } = fontThemes[theme];
+
     if (layout === 'horizontal') {
       return (
-        <div className={`flex flex-col justify-center ${className}`}>
-          <div className="flex items-end leading-none mb-1">
-            <span className="text-sm font-bold tracking-widest mr-2 pb-1">THE</span>
-            <span className="text-4xl font-extrabold tracking-tight">MOSAIC</span>
+        <div className={`flex flex-col justify-center ${className}`} style={{ fontFamily: secondary }}>
+          <div className="flex items-baseline space-x-2 mb-1">
+            <span className="text-sm tracking-[0.3em] font-light">THE</span>
+            <span className="text-4xl tracking-widest font-light uppercase" style={{ fontFamily: primary }}>MOSAIC</span>
           </div>
-          <span className="text-[0.6rem] font-bold tracking-[0.2em] opacity-80 uppercase">
+          <span className="text-[0.55rem] tracking-[0.3em] uppercase opacity-60">
             International Bistro + Social
           </span>
         </div>
@@ -42,497 +94,354 @@ export default function App() {
 
     if (layout === 'inline') {
       return (
-        <div className={`flex items-center space-x-3 ${className}`}>
-          <span className="text-3xl font-extrabold tracking-tight">THE MOSAIC</span>
+        <div className={`flex items-center space-x-3 ${className}`} style={{ fontFamily: secondary }}>
+          <span className="text-2xl tracking-widest font-light uppercase" style={{ fontFamily: primary }}>THE MOSAIC</span>
         </div>
       );
     }
 
-    // Default Vertical Layout (matches reference image)
+    // Default Vertical Layout
     return (
-      <div className={`flex flex-col items-center mt-4 ${className}`}>
-        <div className="relative w-full flex justify-center">
-          <div className="absolute left-0 top-1 text-sm font-bold tracking-wider">THE</div>
-          <div className="text-5xl font-extrabold tracking-tight ml-8">MOSAIC</div>
+      <div className={`flex flex-col items-center mt-6 ${className}`} style={{ fontFamily: secondary }}>
+        <div className="text-[0.6rem] tracking-[0.4em] font-light mb-2">THE</div>
+        <div className="text-4xl sm:text-5xl tracking-[0.15em] font-light uppercase" style={{ fontFamily: primary }}>
+          MOSAIC
         </div>
-        <div className="text-xs font-bold tracking-[0.2em] mt-2 opacity-80 text-center uppercase">
+        <div className="text-[0.55rem] font-light tracking-[0.3em] mt-3 opacity-60 text-center uppercase">
           International Bistro + Social
         </div>
       </div>
     );
   };
 
-  // --- SVG ICON CONCEPTS --- //
+  // --- SVG ICON CONCEPTS (20 NEW DESIGNS) --- //
 
-  // 1. The Exact Recreation
+  // PART 1: THE SIMPLE & ELEVATED SERIES (1-10)
+  
+  // 1. The Elegant Monogram (Ultra-thin, sophisticated M)
   const Logo1 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      <clipPath id="globeClip">
-        <circle cx="50" cy="50" r="48" />
-      </clipPath>
-      <g clipPath="url(#globeClip)">
-        {/* Background Colored Blocks */}
-        <rect x="0" y="0" width="35" height="35" fill={colors.gold} />
-        <rect x="35" y="0" width="30" height="35" fill={colors.teal} />
-        <rect x="65" y="0" width="35" height="35" fill={colors.orange} />
-        
-        <rect x="0" y="35" width="35" height="30" fill={colors.brown} />
-        <rect x="35" y="35" width="30" height="30" fill={colors.gold} />
-        <rect x="65" y="35" width="35" height="30" fill={colors.brown} />
-        
-        <rect x="0" y="65" width="35" height="35" fill={colors.orange} />
-        <rect x="35" y="65" width="30" height="35" fill={colors.teal} />
-        <rect x="65" y="65" width="35" height="35" fill={colors.gold} />
-      </g>
-      
-      {/* Thick Grid Lines acting as "grout" */}
-      <circle cx="50" cy="50" r="48" fill="none" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 50 2 L 50 98" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 2 50 L 98 50" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 28 8 Q 40 50 28 92" fill="none" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 72 8 Q 60 50 72 92" fill="none" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 8 28 Q 50 40 92 28" fill="none" stroke={currentText} strokeWidth="3.5" />
-      <path d="M 8 72 Q 50 60 92 72" fill="none" stroke={currentText} strokeWidth="3.5" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 20 80 L 20 20 L 50 60 L 80 20 L 80 80" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
     </svg>
   );
 
-  // 2. The Horizon (Minimalist Half-Globe)
+  // 2. The Golden Thread (A continuous, minimal line)
   const Logo2 = () => (
-    <svg viewBox="0 0 100 60" className="w-24 h-16 sm:w-32 sm:h-20 drop-shadow-sm">
-      <clipPath id="horizonClip">
-        <path d="M 10 55 A 40 40 0 0 1 90 55 Z" />
-      </clipPath>
-      <g clipPath="url(#horizonClip)">
-        <rect x="10" y="0" width="40" height="55" fill={colors.teal} />
-        <rect x="50" y="0" width="40" height="55" fill={colors.orange} />
-        <circle cx="50" cy="55" r="25" fill={colors.gold} />
-      </g>
-      <path d="M 10 55 A 40 40 0 0 1 90 55 Z" fill="none" stroke={currentText} strokeWidth="4" />
-      <path d="M 50 15 L 50 55" stroke={currentText} strokeWidth="4" />
-      <path d="M 22 35 Q 50 45 78 35" fill="none" stroke={currentText} strokeWidth="4" />
-      <path d="M 0 55 L 100 55" stroke={currentText} strokeWidth="4" strokeLinecap="round" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 10 50 C 10 20, 90 20, 90 50 C 90 80, 10 80, 10 50 Z" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <path d="M 30 50 C 30 10, 70 90, 70 50" fill="none" stroke={currentText} strokeWidth="1" />
+      <path d="M 70 50 C 70 10, 30 90, 30 50" fill="none" stroke={currentText} strokeWidth="1" />
     </svg>
   );
 
-  // 3. Cathedral Square (Stained Glass Arch)
+  // 3. The Perfect Plate (Minimalist negative space)
   const Logo3 = () => (
-    <svg viewBox="0 0 100 120" className="w-20 h-24 sm:w-24 sm:h-28 drop-shadow-sm">
-      <clipPath id="archClip">
-        <path d="M 20 60 L 20 110 L 80 110 L 80 60 A 30 30 0 0 0 20 60 Z" />
-      </clipPath>
-      <g clipPath="url(#archClip)">
-        <polygon points="20,60 50,30 80,60 50,90" fill={colors.teal} />
-        <polygon points="20,60 50,90 20,110" fill={colors.gold} />
-        <polygon points="80,60 80,110 50,90" fill={colors.orange} />
-        <polygon points="20,110 80,110 50,90" fill={colors.brown} />
-      </g>
-      <path d="M 20 60 L 20 110 L 80 110 L 80 60 A 30 30 0 0 0 20 60 Z" fill="none" stroke={currentText} strokeWidth="4" />
-      <path d="M 20 60 L 80 60" stroke={currentText} strokeWidth="4" />
-      <path d="M 50 30 L 50 110" stroke={currentText} strokeWidth="4" />
-      <path d="M 20 60 L 50 90 L 80 60" fill="none" stroke={currentText} strokeWidth="4" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="40" fill={colors.midnight} />
+      <path d="M 35 65 L 35 35 L 50 50 L 65 35 L 65 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
+      <circle cx="50" cy="50" r="48" fill="none" stroke={colors.brass} strokeWidth="0.5" strokeDasharray="2 4" />
     </svg>
   );
 
-  // 4. The Mosaic Shield (New Crest)
+  // 4. The Three Pillars (Food, Culture, Connection)
   const Logo4 = () => (
-    <svg viewBox="0 0 100 120" className="w-24 h-28 sm:w-28 sm:h-32 drop-shadow-sm">
-      <clipPath id="shieldClip">
-        <path d="M 10 10 L 90 10 L 90 60 Q 90 110 50 110 Q 10 110 10 60 Z" />
-      </clipPath>
-      <g clipPath="url(#shieldClip)">
-        <rect x="10" y="10" width="40" height="40" fill={colors.teal} />
-        <rect x="50" y="10" width="40" height="40" fill={colors.orange} />
-        <rect x="10" y="50" width="40" height="60" fill={colors.gold} />
-        <rect x="50" y="50" width="40" height="60" fill={colors.brown} />
-        
-        <path d="M 50 10 L 50 110" stroke={currentText} strokeWidth="4" />
-        <path d="M 10 50 L 90 50" stroke={currentText} strokeWidth="4" />
-      </g>
-      <path d="M 10 10 L 90 10 L 90 60 Q 90 110 50 110 Q 10 110 10 60 Z" fill="none" stroke={currentText} strokeWidth="4" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <rect x="30" y="20" width="2" height="60" fill={colors.terracotta} />
+      <rect x="49" y="10" width="2" height="80" fill={colors.brass} />
+      <rect x="68" y="30" width="2" height="40" fill={colors.sage} />
+      <circle cx="50" cy="50" r="45" fill="none" stroke={currentText} strokeWidth="0.5" />
     </svg>
   );
 
-  // 5. Convergence (Overlapping Cultures)
+  // 5. The Cathedral Arch Outline
   const Logo5 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      <circle cx="40" cy="40" r="28" fill={colors.teal} opacity="0.8" style={{ mixBlendMode: 'multiply' }} />
-      <circle cx="60" cy="40" r="28" fill={colors.gold} opacity="0.8" style={{ mixBlendMode: 'multiply' }} />
-      <circle cx="50" cy="60" r="28" fill={colors.orange} opacity="0.8" style={{ mixBlendMode: 'multiply' }} />
-      
-      {/* Overlaid minimal globe lines */}
-      <circle cx="50" cy="46" r="40" fill="none" stroke={currentText} strokeWidth="2" />
-      <path d="M 50 6 L 50 86" stroke={currentText} strokeWidth="2" />
-      <path d="M 10 46 L 90 46" stroke={currentText} strokeWidth="2" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 25 90 L 25 50 A 25 25 0 0 1 75 50 L 75 90" fill="none" stroke={currentText} strokeWidth="1" />
+      <path d="M 35 90 L 35 50 A 15 15 0 0 1 65 50 L 65 90" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <circle cx="50" cy="35" r="3" fill={colors.terracotta} />
     </svg>
   );
 
-  // 6. The Modern 'M' (Mosaic Lettermark)
+  // 6. The Staggered Pillars (Architectural 'M')
   const Logo6 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      <clipPath id="mClip">
-        <path d="M 10 90 L 10 20 L 50 60 L 90 20 L 90 90 L 70 90 L 70 45 L 50 65 L 30 45 L 30 90 Z" />
-      </clipPath>
-      <g clipPath="url(#mClip)">
-        <rect x="0" y="0" width="50" height="100" fill={colors.teal} />
-        <rect x="50" y="0" width="50" height="100" fill={colors.orange} />
-        <polygon points="10,20 50,60 90,20" fill={colors.gold} />
-        <polygon points="30,45 50,65 70,45 50,90" fill={colors.brown} />
-      </g>
-      <path d="M 10 90 L 10 20 L 50 60 L 90 20 L 90 90 L 70 90 L 70 45 L 50 65 L 30 45 L 30 90 Z" fill="none" stroke={currentText} strokeWidth="3" strokeLinejoin="round" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <rect x="25" y="30" width="1.5" height="50" fill={currentText} />
+      <rect x="37.5" y="45" width="1.5" height="35" fill={colors.brass} />
+      <rect x="50" y="60" width="1.5" height="20" fill={colors.terracotta} />
+      <rect x="62.5" y="45" width="1.5" height="35" fill={colors.brass} />
+      <rect x="75" y="30" width="1.5" height="50" fill={currentText} />
     </svg>
   );
 
-  // 7. The Global Pitch (Abstract Soccer/Sports nod)
+  // 7. The Glass Shard (Abstract, singular tile)
   const Logo7 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      <circle cx="50" cy="50" r="45" fill="none" stroke={currentText} strokeWidth="3" strokeDasharray="8 4" />
-      <circle cx="50" cy="50" r="30" fill="none" stroke={currentText} strokeWidth="2" />
-      <path d="M 20 50 Q 50 10 80 50 Q 50 90 20 50 Z" fill={colors.teal} opacity="0.9" />
-      <path d="M 50 20 Q 90 50 50 80 Q 10 50 50 20 Z" fill={colors.orange} opacity="0.8" style={{ mixBlendMode: 'multiply' }} />
-      <circle cx="50" cy="50" r="8" fill={colors.gold} />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <polygon points="50,10 80,40 60,90 20,60" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <polygon points="50,15 75,42 58,85 25,58" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.5" />
+      <circle cx="50" cy="50" r="2" fill={colors.terracotta} />
     </svg>
   );
 
-  // 8. Abstract Table (Bistro/Gathering focus)
+  // 8. Bistro & Social (The Overlap)
   const Logo8 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      {/* Seats */}
-      <circle cx="50" cy="15" r="8" fill={colors.teal} />
-      <circle cx="85" cy="50" r="8" fill={colors.gold} />
-      <circle cx="50" cy="85" r="8" fill={colors.orange} />
-      <circle cx="15" cy="50" r="8" fill={colors.brown} />
-      
-      {/* Table */}
-      <circle cx="50" cy="50" r="24" fill="none" stroke={currentText} strokeWidth="4" />
-      <path d="M 38 38 L 62 62" stroke={currentText} strokeWidth="3" />
-      <path d="M 62 38 L 38 62" stroke={currentText} strokeWidth="3" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="40" cy="50" r="30" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <circle cx="60" cy="50" r="30" fill="none" stroke={currentText} strokeWidth="1" />
+      <path d="M 50 22 L 50 78" stroke={colors.terracotta} strokeWidth="1" strokeDasharray="2 2" />
     </svg>
   );
 
-  // 9. The Compass (Travel / Global motif)
+  // 9. The Global Horizon
   const Logo9 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      <circle cx="50" cy="50" r="40" fill="none" stroke={currentText} strokeWidth="2" />
-      <polygon points="50,5 58,42 95,50 58,58 50,95 42,58 5,50 42,42" fill={currentText} />
-      <polygon points="50,5 50,50 5,50 42,42" fill={colors.gold} />
-      <polygon points="50,5 95,50 50,50 58,42" fill={colors.teal} />
-      <polygon points="50,95 50,50 95,50 58,58" fill={colors.orange} />
-      <polygon points="50,95 5,50 50,50 42,58" fill={colors.brown} />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 10 60 L 90 60" stroke={currentText} strokeWidth="1" />
+      <path d="M 20 60 A 30 30 0 0 1 80 60" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <circle cx="50" cy="60" r="2" fill={colors.terracotta} />
     </svg>
   );
 
-  // 10. Typographic Integration ('O' as the mosaic)
+  // 10. The Evening Star (Fine Dining Spark)
   const Logo10 = () => (
-    <div className="flex flex-col items-center mt-6">
-      <div className="text-sm font-bold tracking-widest mb-1">THE</div>
-      <div className="flex items-center text-4xl sm:text-5xl font-extrabold tracking-tight">
-        <span>M</span>
-        <svg viewBox="0 0 100 100" className="w-10 h-10 sm:w-12 sm:h-12 mx-1 animate-spin-slow" style={{ animationDuration: '20s' }}>
-          <circle cx="50" cy="50" r="45" fill={colors.teal} />
-          <path d="M 50 5 L 95 50 L 50 95 L 5 50 Z" fill={colors.gold} />
-          <path d="M 50 5 L 50 95" stroke={currentBg} strokeWidth="6" />
-          <path d="M 5 50 L 95 50" stroke={currentBg} strokeWidth="6" />
-        </svg>
-        <span>SAIC</span>
-      </div>
-      <div className="text-[0.55rem] sm:text-xs font-bold tracking-[0.2em] mt-3 opacity-80 uppercase">
-        International Bistro + Social
-      </div>
-    </div>
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 50 15 Q 50 50 85 50 Q 50 50 50 85 Q 50 50 15 50 Q 50 50 50 15 Z" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <circle cx="50" cy="50" r="32" fill="none" stroke={currentText} strokeWidth="0.5" strokeDasharray="3 5" />
+      <circle cx="50" cy="50" r="2" fill={colors.terracotta} />
+    </svg>
   );
 
-  // 11. The Cornerstone (Isometric Mosaic)
+  // PART 2: THE DEEPER MEANING SERIES (11-20)
+
+  // 11. The Lingua Franca (Client's Idea: "Mosaic" in multiple languages forming a circle)
   const Logo11 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      {/* Top Face */}
-      <polygon points="50,15 80,30 50,45 20,30" fill={colors.gold} />
-      {/* Left Face */}
-      <polygon points="20,30 50,45 50,80 20,65" fill={colors.teal} />
-      {/* Right Face */}
-      <polygon points="50,45 80,30 80,65 50,80" fill={colors.orange} />
-      
-      {/* Mosaic Grid Lines */}
-      <path d="M 50 15 L 50 80" stroke={currentText} strokeWidth="3" strokeLinejoin="round" />
-      <path d="M 20 30 L 50 45 L 80 30" fill="none" stroke={currentText} strokeWidth="3" strokeLinejoin="round" />
-      
-      {/* Inner Sub-tiles */}
-      <path d="M 35 22.5 L 35 72.5" stroke={currentText} strokeWidth="2" opacity="0.6" />
-      <path d="M 65 22.5 L 65 72.5" stroke={currentText} strokeWidth="2" opacity="0.6" />
-      <path d="M 20 47.5 L 50 62.5 L 80 47.5" fill="none" stroke={currentText} strokeWidth="2" opacity="0.6" />
-      <path d="M 35 37.5 L 65 22.5" fill="none" stroke={currentText} strokeWidth="2" opacity="0.6" />
-      <path d="M 35 22.5 L 65 37.5" fill="none" stroke={currentText} strokeWidth="2" opacity="0.6" />
-      
-      {/* Cube Outline */}
-      <polygon points="50,15 80,30 80,65 50,80 20,65 20,30" fill="none" stroke={currentText} strokeWidth="4" strokeLinejoin="round" />
+    <svg viewBox="0 0 120 120" className="w-28 h-28 sm:w-36 sm:h-36">
+      <path id="languageCircle" d="M 60 15 A 45 45 0 1 1 59.9 15" fill="none" />
+      <text fontSize="6" fontStyle="italic" fill={currentText} letterSpacing="2.5" className="uppercase opacity-80" style={{ fontFamily: fontThemes.editorial.secondary }}>
+        <textPath href="#languageCircle" startOffset="0%">
+          MOSAICO • MOSAÏQUE • MOSAIK • モザイク • فسيفساء • MOSAICO • 
+        </textPath>
+      </text>
+      <circle cx="60" cy="60" r="32" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <text x="60" y="64" fontSize="16" textAnchor="middle" fill={currentText} style={{ fontFamily: fontThemes.editorial.primary }} letterSpacing="1">M</text>
     </svg>
   );
 
-  // 12. The Elegant Serif (Upscale Dining)
+  // 12. The Gathering Table (Overhead abstraction of people converging)
   const Logo12 = () => (
-    <div className="flex flex-col items-center justify-center space-y-4">
-      <svg viewBox="0 0 80 80" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-sm">
-         {/* Abstract elegant mark */}
-         <path d="M 40 5 L 75 40 L 40 75 L 5 40 Z" fill="none" stroke={colors.gold} strokeWidth="2" />
-         <path d="M 40 15 L 65 40 L 40 65 L 15 40 Z" fill="none" stroke={colors.orange} strokeWidth="1.5" />
-         <circle cx="40" cy="40" r="8" fill={colors.teal} />
-      </svg>
-      <div className="text-center" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
-        <div className="text-sm tracking-[0.3em] mb-2 font-bold" style={{ color: colors.gold }}>THE</div>
-        <div className="text-4xl sm:text-5xl tracking-widest uppercase" style={{ color: currentText }}>Mosaic</div>
-        <div className="text-[0.6rem] tracking-[0.2em] mt-3 uppercase font-bold" style={{ color: colors.orange }}>Bistro + Social</div>
-      </div>
-    </div>
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="15" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <path d="M 50 10 L 50 30 M 50 70 L 50 90 M 10 50 L 30 50 M 70 50 L 90 50" stroke={currentText} strokeWidth="1" />
+      <path d="M 22 22 L 36 36 M 78 78 L 64 64 M 78 22 L 64 36 M 22 78 L 36 64" stroke={colors.terracotta} strokeWidth="1" />
+      <circle cx="50" cy="50" r="3" fill={currentText} />
+    </svg>
   );
 
-  // 13. The Navigator's Sphere (Armillary)
+  // 13. Woven Tapestry (Different threads making one fabric)
   const Logo13 = () => (
-    <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-32 sm:h-32 drop-shadow-sm">
-      {/* Outer framing ring */}
-      <circle cx="50" cy="50" r="46" fill="none" stroke={currentText} strokeWidth="1.5" strokeDasharray="4 4" />
-      {/* Prime Meridian */}
-      <circle cx="50" cy="50" r="38" fill="none" stroke={colors.teal} strokeWidth="3" />
-      
-      {/* Ecliptic and Equator orbits */}
-      <ellipse cx="50" cy="50" rx="38" ry="12" fill="none" stroke={colors.orange} strokeWidth="3" transform="rotate(-30 50 50)" />
-      <ellipse cx="50" cy="50" rx="38" ry="12" fill="none" stroke={colors.gold} strokeWidth="3" transform="rotate(30 50 50)" />
-      <ellipse cx="50" cy="50" rx="38" ry="6" fill="none" stroke={colors.brown} strokeWidth="2" />
-      
-      {/* Central Axis */}
-      <path d="M 50 4 L 50 96" stroke={currentText} strokeWidth="4" strokeLinecap="round" />
-      
-      {/* Celestial body / core */}
-      <circle cx="50" cy="50" r="8" fill={currentBg} stroke={currentText} strokeWidth="3" />
-      <circle cx="50" cy="50" r="3" fill={colors.teal} />
-      
-      {/* Pivot nodes */}
-      <circle cx="50" cy="12" r="4" fill={colors.gold} />
-      <circle cx="50" cy="88" r="4" fill={colors.orange} />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 20 20 L 80 80 M 20 50 L 80 50 M 20 80 L 80 20 M 50 20 L 50 80" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
+      <path d="M 35 20 L 80 65 M 20 35 L 65 80 M 65 20 L 20 65 M 80 35 L 35 80" stroke={colors.brass} strokeWidth="1" />
+      <rect x="35" y="35" width="30" height="30" fill="none" stroke={colors.terracotta} strokeWidth="1" transform="rotate(45 50 50)" />
     </svg>
   );
 
-  // 14. The Cathedral Archway (Architectural Awning)
+  // 14. The Compass Rose (Travel, Direction, Origin)
   const Logo14 = () => (
-    <svg viewBox="0 0 120 100" className="w-28 h-24 sm:w-36 sm:h-28 drop-shadow-sm">
-      {/* Architectural Archway */}
-      <path d="M 20 90 L 20 50 A 40 40 0 0 1 100 50 L 100 90" fill="none" stroke={colors.teal} strokeWidth="8" />
-      <path d="M 12 90 L 108 90" stroke={colors.brown} strokeWidth="4" />
-      
-      {/* Inner Mosaic Pattern */}
-      <path d="M 28 90 L 28 50 A 32 32 0 0 1 92 50 L 92 90 Z" fill={colors.gold} opacity="0.15" />
-      
-      {/* Doorway / Inner Arch */}
-      <path d="M 40 90 L 40 60 A 20 20 0 0 1 80 60 L 80 90" fill="none" stroke={colors.orange} strokeWidth="4" />
-      <circle cx="60" cy="50" r="8" fill={colors.teal} />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="45" fill="none" stroke={currentText} strokeWidth="0.5" />
+      <polygon points="50,10 55,45 90,50 55,55 50,90 45,55 10,50 45,45" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <path d="M 50 10 L 50 90 M 10 50 L 90 50" stroke={currentText} strokeWidth="0.5" opacity="0.5" />
     </svg>
   );
 
-  // 15. The Cathedral Lantern (Bistro lighting)
+  // 15. The Convergence (Many paths leading to one center)
   const Logo15 = () => (
-    <svg viewBox="0 0 100 120" className="w-20 h-24 sm:w-24 sm:h-28 drop-shadow-md">
-      {/* Lantern Handle */}
-      <path d="M 40 20 C 40 5, 60 5, 60 20" fill="none" stroke={currentText} strokeWidth="3" />
-      
-      {/* Lantern Cap */}
-      <path d="M 30 35 L 50 15 L 70 35 Z" fill={colors.brown} stroke={currentText} strokeWidth="2" strokeLinejoin="round" />
-      
-      {/* Glowing Stained Glass Panes */}
-      <polygon points="35,35 65,35 60,90 40,90" fill={colors.gold} opacity="0.3" />
-      <polygon points="40,35 50,35 50,90 45,90" fill={colors.orange} opacity="0.7" />
-      <polygon points="50,35 60,35 55,90 50,90" fill={colors.teal} opacity="0.7" />
-      
-      {/* Lantern Frame */}
-      <polygon points="35,35 65,35 60,90 40,90" fill="none" stroke={currentText} strokeWidth="4" strokeLinejoin="round" />
-      <path d="M 40 90 L 60 90 L 65 105 L 35 105 Z" fill={colors.brown} stroke={currentText} strokeWidth="3" strokeLinejoin="round" />
-      
-      {/* Frame Crossbars */}
-      <path d="M 38 60 L 62 60" stroke={currentText} strokeWidth="3" />
-      <path d="M 50 35 L 50 90" stroke={currentText} strokeWidth="3" />
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="4" fill={colors.brass} />
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+        <path key={angle} d={`M 50 50 L 50 5`} stroke={currentText} strokeWidth="1" opacity={0.6} transform={`rotate(${angle} 50 50)`} />
+      ))}
+      <circle cx="50" cy="50" r="25" fill="none" stroke={colors.terracotta} strokeWidth="1" strokeDasharray="4 4" />
     </svg>
   );
 
-  const concepts = [
-    {
-      id: 1,
-      title: 'The Original Recreation',
-      desc: 'An exact, pixel-perfect, scalable vector recreation of the reference image provided, incorporating the fixed typo and premium color palette.',
-      component: <Logo1 />,
-      layout: 'vertical'
-    },
-    {
-      id: 2,
-      title: 'The New Horizon',
-      desc: 'A horizontal lockup framing the globe as a rising sun. Perfect for signage and menus, emphasizing the dawn of a new cultural renaissance in Milwaukee.',
-      component: <Logo2 />,
-      layout: 'horizontal'
-    },
-    {
-      id: 3,
-      title: 'Cathedral Glass',
-      desc: 'A direct nod to the Cathedral Square location. Blends the stained-glass archways of historic architecture with the mosaic globe concept.',
-      component: <Logo3 />,
-      layout: 'vertical'
-    },
-    {
-      id: 4,
-      title: 'The Mosaic Shield',
-      desc: 'A classic crest design reimagined with the brand\'s signature mosaic blocks. It conveys an established, premium identity suitable for uniforms and official branding.',
-      component: <Logo4 />,
-      layout: 'vertical'
-    },
-    {
-      id: 5,
-      title: 'Cultural Convergence',
-      desc: 'Overlapping translucent circles represent the seamless blending of cultures, music, and sports mentioned in the business plan.',
-      component: <Logo5 />,
-      layout: 'horizontal'
-    },
-    {
-      id: 6,
-      title: 'The Modern Monogram',
-      desc: 'A highly structured, architectural "M" built from mosaic tiles. Conveys the sophisticated, upscale interior remodel planned for the space.',
-      component: <Logo6 />,
-      layout: 'vertical'
-    },
-    {
-      id: 7,
-      title: 'The Global Pitch',
-      desc: 'A subtle homage to the international sports and soccer identity. Geometric patterns echo a soccer ball while maintaining an abstract, high-end look.',
-      component: <Logo7 />,
-      layout: 'vertical'
-    },
-    {
-      id: 8,
-      title: 'The Global Table',
-      desc: 'An abstract, overhead view of a bistro table surrounded by diverse seats. Reinforces the mission of being "Milwaukee\'s living room".',
-      component: <Logo8 />,
-      layout: 'horizontal'
-    },
-    {
-      id: 9,
-      title: 'The Explorer\'s Compass',
-      desc: 'Combines the mosaic styling with a traditional compass rose. A metaphor for global discovery, travel, and the international menus.',
-      component: <Logo9 />,
-      layout: 'vertical'
-    },
-    {
-      id: 10,
-      title: 'The Typographic Mark',
-      desc: 'A clean, modern typographic approach where the "O" becomes the mosaic symbol. Highly legible and perfectly adapted for digital UI.',
-      component: <Logo10 />,
-      layout: 'none'
-    },
-    {
-      id: 11,
-      title: 'The Cornerstone',
-      desc: 'An isometric 3D mosaic cube representing the business plan\'s vision of being the "cornerstone" of Milwaukee\'s cultural renaissance.',
-      component: <Logo11 />,
-      layout: 'vertical'
-    },
-    {
-      id: 12,
-      title: 'The Elegant Serif',
-      desc: 'A departure from the geometric modernism. This concept introduces an elegant serif typography and delicate linework for a highly upscale, fine-dining aesthetic.',
-      component: <Logo12 />,
-      layout: 'none'
-    },
-    {
-      id: 13,
-      title: 'The Navigator\'s Sphere',
-      desc: 'A sophisticated departure from the traditional globe, inspired by the armillary spheres of ancient explorers. It evokes worldly discovery, premium craftsmanship, and an elevated international atmosphere.',
-      component: <Logo13 />,
-      layout: 'vertical'
-    },
-    {
-      id: 14,
-      title: 'The Cathedral Archway',
-      desc: 'Directly inspired by the physical storefront and the 1900s historic architecture of Cathedral Square. Welcoming, grounded, and physically rooted in Milwaukee.',
-      component: <Logo14 />,
-      layout: 'vertical'
-    },
-    {
-      id: 15,
-      title: 'The Cathedral Lantern',
-      desc: 'Inspired by European bistro lighting and the historic streets of Cathedral Square. A welcoming lantern utilizing the signature mosaic colors as illuminated stained-glass panes.',
-      component: <Logo15 />,
-      layout: 'vertical'
+  // 16. The Abstract Meridian Globe (A sophisticated take on the world)
+  const Logo16 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="50" cy="50" r="40" fill="none" stroke={currentText} strokeWidth="1" />
+      <ellipse cx="50" cy="50" rx="20" ry="40" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <ellipse cx="50" cy="50" rx="40" ry="15" fill="none" stroke={currentText} strokeWidth="1" opacity="0.5" />
+      <path d="M 50 10 L 50 90" stroke={colors.brass} strokeWidth="1" />
+    </svg>
+  );
+
+  // 17. The Cultural Knot (Inseparable connections)
+  const Logo17 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 30 50 C 30 20, 70 20, 70 50 C 70 80, 30 80, 30 50 Z" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <path d="M 50 30 C 80 30, 80 70, 50 70 C 20 70, 20 30, 50 30 Z" fill="none" stroke={currentText} strokeWidth="1.5" />
+      <circle cx="50" cy="50" r="2" fill={colors.terracotta} />
+    </svg>
+  );
+
+  // 18. The Human Element (Topography / Fingerprint)
+  const Logo18 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <path d="M 20 50 Q 50 10 80 50 Q 50 90 20 50" fill="none" stroke={currentText} strokeWidth="0.5" />
+      <path d="M 30 50 Q 50 20 70 50 Q 50 80 30 50" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <path d="M 40 50 Q 50 35 60 50 Q 50 65 40 50" fill="none" stroke={colors.terracotta} strokeWidth="0.5" />
+      <circle cx="50" cy="50" r="2" fill={currentText} />
+    </svg>
+  );
+
+  // 19. Day & Night (Bistro & Social transition)
+  const Logo19 = () => (
+    <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+      <circle cx="45" cy="50" r="25" fill="none" stroke={colors.brass} strokeWidth="1.5" />
+      <path d="M 55 25 A 25 25 0 0 1 55 75 A 30 30 0 0 0 55 25 Z" fill={currentText} opacity="0.8" />
+      <path d="M 10 50 L 90 50" stroke={currentText} strokeWidth="0.5" strokeDasharray="2 4" />
+    </svg>
+  );
+
+  // 20. The Scattered Mosaic (Many unique pieces forming a sphere)
+  const Logo20 = () => {
+    const dots = [];
+    for(let i=0; i<40; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * 40;
+      const x = 50 + radius * Math.cos(angle);
+      const y = 50 + radius * Math.sin(angle);
+      const color = Math.random() > 0.6 ? colors.brass : (Math.random() > 0.5 ? colors.terracotta : currentText);
+      dots.push(<circle key={i} cx={x} cy={y} r={Math.random() * 1.5 + 0.5} fill={color} opacity={0.8} />);
     }
+    return (
+      <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
+        {dots}
+        <circle cx="50" cy="50" r="42" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
+      </svg>
+    );
+  };
+
+  const concepts: Array<{ id: number; title: string; desc: string; component: React.ReactNode; layout: 'horizontal' | 'vertical' | 'none'; fontTheme: keyof typeof fontThemes }> = [
+    // Simple Series
+    { id: 1, title: 'The Elegant Monogram', desc: 'An ultra-thin, sophisticated "M". Relies entirely on elegant proportions and negative space, completely avoiding cartoonish thickness.', component: <Logo1 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 2, title: 'The Golden Thread', desc: 'A continuous, minimal line shaping an abstract sphere. Represents connection and continuity in the cleanest way possible.', component: <Logo2 />, layout: 'horizontal', fontTheme: 'artdeco' },
+    { id: 3, title: 'The Perfect Plate', desc: 'A minimalist negative space design. Subtle, culinary-focused, and highly elevated. Looks like a Michelin-star stamp.', component: <Logo3 />, layout: 'vertical', fontTheme: 'heritage' },
+    { id: 4, title: 'The Three Pillars', desc: 'Three elegant lines representing Food, Culture, and Connection. Extremely simple, architectural, and modern.', component: <Logo4 />, layout: 'horizontal', fontTheme: 'modern' },
+    { id: 5, title: 'The Cathedral Arch', desc: 'A hyper-minimalist outline of Cathedral Square\'s historic archways. Grounded in your location but stripped of all literal clutter.', component: <Logo5 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 6, title: 'The Staggered Pillars', desc: 'Five delicate vertical lines that implicitly form the shape of an "M" through their varying heights. A sophisticated nod to architecture.', component: <Logo6 />, layout: 'vertical', fontTheme: 'modern' },
+    { id: 7, title: 'The Glass Shard', desc: 'Rather than a full mosaic, this focuses on a single, beautifully cut geometric shard of glass or brass.', component: <Logo7 />, layout: 'vertical', fontTheme: 'avantgarde' },
+    { id: 8, title: 'Bistro & Social', desc: 'The overlap. Two perfect circles intersecting to create a third space. Represents the dual nature of your day-to-night business.', component: <Logo8 />, layout: 'horizontal', fontTheme: 'heritage' },
+    { id: 9, title: 'The Global Horizon', desc: 'The simplest abstraction of a rising sun over the horizon. Represents the dawn of a new cultural hub in Milwaukee.', component: <Logo9 />, layout: 'vertical', fontTheme: 'artdeco' },
+    { id: 10, title: 'The Evening Star', desc: 'A sophisticated four-pointed star representing the evening social lounge and the highest standard of culinary excellence.', component: <Logo10 />, layout: 'vertical', fontTheme: 'editorial' },
+    
+    // Deeper Meaning Series
+    { id: 11, title: 'The Lingua Franca', desc: 'Directly from your feedback: The word "Mosaic" translated into French, German, Japanese, and Arabic, forming a unified global circle.', component: <Logo11 />, layout: 'none', fontTheme: 'editorial' },
+    { id: 12, title: 'The Gathering Table', desc: 'An abstract, overhead view of paths converging at a round table. A subtle nod to the "living room" community aspect of the business plan.', component: <Logo12 />, layout: 'horizontal', fontTheme: 'modern' },
+    { id: 13, title: 'Woven Tapestry', desc: 'Different geometric threads crossing over one another to weave a unified fabric. Symbolizes the blending of global cultures.', component: <Logo13 />, layout: 'vertical', fontTheme: 'heritage' },
+    { id: 14, title: 'The Compass Rose', desc: 'A deeply meaningful symbol of travel, direction, and worldly origin, executed in a refined, high-end nautical aesthetic.', component: <Logo14 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 15, title: 'The Convergence', desc: 'Eight lines arriving from all directions to meet at a central, golden focal point. Represents Cathedral Square as the meeting place.', component: <Logo15 />, layout: 'horizontal', fontTheme: 'artdeco' },
+    { id: 16, title: 'The Meridian Globe', desc: 'A sophisticated, abstract take on the globe using only delicate meridian lines, stripping away the bulky "clipart" map shapes.', component: <Logo16 />, layout: 'vertical', fontTheme: 'editorial' },
+    { id: 17, title: 'The Cultural Knot', desc: 'Inspired by global knotwork (Celtic, Asian, Nordic). Two endless loops entwined, representing inseparable human connection.', component: <Logo17 />, layout: 'horizontal', fontTheme: 'heritage' },
+    { id: 18, title: 'The Human Element', desc: 'Lines that mimic both a topographical map and a human fingerprint. A meaningful reminder that the food and music are rooted in people.', component: <Logo18 />, layout: 'vertical', fontTheme: 'avantgarde' },
+    { id: 19, title: 'Day & Night', desc: 'Overlapping phases of the sun and moon. Meaningfully visualizes the transition from daytime Bistro to evening Social lounge.', component: <Logo19 />, layout: 'vertical', fontTheme: 'modern' },
+    { id: 20, title: 'The True Mosaic', desc: 'Instead of blocky tiles, a true mosaic of dozens of distinct, scattered points coming together to form a unified sphere.', component: <Logo20 />, layout: 'horizontal', fontTheme: 'artdeco' }
   ];
 
   return (
     <div 
       className="min-h-screen transition-colors duration-500 ease-in-out font-sans"
-      style={{ backgroundColor: currentBg, color: currentText }}
+      style={{ backgroundColor: currentBg, color: currentText, fontFamily: fontThemes.editorial.secondary }}
     >
       {/* Header */}
-      <header className="px-8 py-12 md:py-20 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border mb-6 text-sm font-semibold tracking-wider uppercase" style={{ borderColor: currentText }}>
-          <Globe2 size={16} />
-          <span>Brand Identity Presentation</span>
+      <header className="px-8 py-16 md:py-24 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border mb-8 text-xs font-medium tracking-widest uppercase" style={{ borderColor: colors.brass, color: colors.brass }}>
+          <Globe2 size={14} />
+          <span>Refined Brand Identity</span>
         </div>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+        <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-8" style={{ fontFamily: fontThemes.editorial.primary }}>
           The Mosaic Concepts
         </h1>
-        <p className="max-w-2xl text-lg md:text-xl opacity-80 font-medium mb-10 leading-relaxed">
-          Exploring 15 unique visual identities for Milwaukee's premier international gathering place. Inspired by the Cathedral Square heritage, global cuisine, and the unifying power of sports.
+        <p className="max-w-3xl text-lg md:text-xl opacity-70 font-light mb-12 leading-relaxed">
+          Exploring 20 entirely new, elevated visual identities. Moving away from literal illustrations, we are focusing on two distinct directions: <strong className="font-semibold">hyper-minimalist elegance</strong> and <strong className="font-semibold">thoughtful, deeper symbolism.</strong>
         </p>
 
         {/* Theme Toggle */}
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className="flex items-center space-x-3 px-6 py-3 rounded-full font-bold transition-transform hover:scale-105 active:scale-95 shadow-lg"
-          style={{ backgroundColor: currentText, color: currentBg }}
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          <span>Preview {isDarkMode ? 'Light' : 'Dark'} Environment</span>
-        </button>
+        <div className="flex flex-col items-center gap-6">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="flex items-center space-x-3 px-8 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:opacity-80 border"
+            style={{ backgroundColor: isDarkMode ? 'transparent' : currentText, color: isDarkMode ? currentText : currentBg, borderColor: currentText }}
+          >
+            {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+            <span>Switch to {isDarkMode ? 'Day' : 'Night'} Mode</span>
+          </button>
+
+          {/* Color Scheme Toggles */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {(Object.keys(allSchemes) as Array<keyof typeof allSchemes>).map((key) => {
+              const scheme = allSchemes[key];
+              return (
+                <button
+                  key={scheme.id}
+                  onClick={() => setActiveScheme(key)}
+                  className={`flex items-center space-x-2 px-5 py-2 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition-all duration-300 border ${
+                    activeScheme === key ? 'opacity-100 scale-105 shadow-md' : 'opacity-40 hover:opacity-80'
+                  }`}
+                  style={{
+                    backgroundColor: activeScheme === key ? currentText : 'transparent',
+                    color: activeScheme === key ? currentBg : currentText,
+                    borderColor: currentText
+                  }}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: scheme.accent1 }}></span>
+                  <span>{scheme.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </header>
 
       {/* Typography Showcase */}
       <section className="px-6 pb-8 max-w-7xl mx-auto">
-        <div className="border rounded-3xl p-8 md:p-12 transition-colors duration-500" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FFFFFF' }}>
-          <div className="flex items-center gap-3 mb-8">
-            <Type size={24} style={{ color: colors.orange }} />
-            <h2 className="text-2xl font-bold tracking-tight">Brand Typography Options</h2>
+        <div className="border rounded-xl p-8 md:p-12 transition-colors duration-500" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
+          <div className="flex items-center gap-3 mb-10 pb-6 border-b" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+            <Type size={20} style={{ color: colors.brass }} />
+            <h2 className="text-xl font-light tracking-widest uppercase">Typography Pairings Explored</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Primary Font */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Theme 1 */}
             <div className="flex flex-col">
-              <span className="text-xs font-bold tracking-widest uppercase opacity-50 mb-4">Primary Brand Font</span>
-              <div className="text-5xl font-extrabold tracking-tight mb-2 font-sans">Aa</div>
-              <h3 className="text-xl font-bold mb-1 font-sans">Geometric Sans</h3>
-              <p className="text-sm opacity-70 mb-4">Used for the primary "MOSAIC" logomark. Clean, legible, and highly modern.</p>
-              <div className="text-sm opacity-60 font-medium tracking-wide">
-                A B C D E F G H I J K L M <br />
-                a b c d e f g h i j k l m <br />
-                0 1 2 3 4 5 6 7 8 9
-              </div>
+              <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase opacity-40 mb-4">Pairing 01: Editorial</span>
+              <div className="text-4xl font-light mb-2" style={{ fontFamily: fontThemes.editorial.primary }}>Aa</div>
+              <h3 className="text-md tracking-wider mb-2" style={{ fontFamily: fontThemes.editorial.primary }}>Didot + Sans</h3>
+              <p className="text-xs opacity-60 font-light leading-relaxed">High-contrast, high-fashion serif paired with a clean geometric sans. Instantly communicates fine dining.</p>
             </div>
 
-            {/* Serif Font */}
+            {/* Theme 2 */}
             <div className="flex flex-col">
-              <span className="text-xs font-bold tracking-widest uppercase opacity-50 mb-4">Upscale Alternative</span>
-              <div className="text-5xl font-bold mb-2" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>Aa</div>
-              <h3 className="text-xl font-bold mb-1" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>Elegant Serif</h3>
-              <p className="text-sm opacity-70 mb-4">Reserved for elevated fine-dining concepts (Concept 12) and formal menus.</p>
-              <div className="text-sm opacity-60 italic tracking-wide" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
-                A B C D E F G H I J K L M <br />
-                a b c d e f g h i j k l m <br />
-                0 1 2 3 4 5 6 7 8 9
-              </div>
+              <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase opacity-40 mb-4">Pairing 02: Heritage</span>
+              <div className="text-4xl font-light mb-2" style={{ fontFamily: fontThemes.heritage.primary }}>Aa</div>
+              <h3 className="text-md tracking-wider mb-2" style={{ fontFamily: fontThemes.heritage.primary }}>Garamond + Avenir</h3>
+              <p className="text-xs opacity-60 font-light leading-relaxed">A softer, more historic serif honoring the 1900s Cathedral Square architecture. Warm and established.</p>
             </div>
 
-            {/* Monospace Font */}
+            {/* Theme 3 */}
             <div className="flex flex-col">
-              <span className="text-xs font-bold tracking-widest uppercase opacity-50 mb-4">Secondary/Accent Font</span>
-              <div className="text-5xl font-bold mb-2 font-mono">Aa</div>
-              <h3 className="text-xl font-bold mb-1 font-mono">Technical Mono</h3>
-              <p className="text-sm opacity-70 mb-4">Used for sub-branding, timestamps, and travel motifs (Concept 11).</p>
-              <div className="text-sm opacity-60 tracking-wider font-mono">
-                A B C D E F G H I J K L M <br />
-                a b c d e f g h i j k l m <br />
-                0 1 2 3 4 5 6 7 8 9
-              </div>
+              <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase opacity-40 mb-4">Pairing 03: Art Deco</span>
+              <div className="text-4xl font-light mb-2 uppercase" style={{ fontFamily: fontThemes.artdeco.primary }}>Aa</div>
+              <h3 className="text-md tracking-wider mb-2 uppercase" style={{ fontFamily: fontThemes.artdeco.primary }}>Futura + Mono</h3>
+              <p className="text-xs opacity-60 font-light leading-relaxed">A geometric, uppercase-heavy styling that nods to the roaring 20s and the golden age of social clubs.</p>
+            </div>
+
+            {/* Theme 4 */}
+            <div className="flex flex-col">
+              <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase opacity-40 mb-4">Pairing 04: Modern</span>
+              <div className="text-4xl font-light mb-2" style={{ fontFamily: fontThemes.modern.primary }}>Aa</div>
+              <h3 className="text-md tracking-wider mb-2" style={{ fontFamily: fontThemes.modern.primary }}>Pure Geometric</h3>
+              <p className="text-xs opacity-60 font-light leading-relaxed">A completely sans-serif approach. Highly legible, unpretentious, and aggressively modern.</p>
             </div>
           </div>
         </div>
@@ -540,55 +449,59 @@ export default function App() {
 
       {/* Color Palette Showcase */}
       <section className="px-6 pb-16 max-w-7xl mx-auto">
-        <div className="border rounded-3xl p-8 md:p-12 transition-colors duration-500" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FFFFFF' }}>
-          <div className="flex items-center gap-3 mb-8">
-            <Palette size={24} style={{ color: colors.teal }} />
-            <h2 className="text-2xl font-bold tracking-tight">Brand Color Palette</h2>
+        <div className="border rounded-xl p-8 md:p-12 transition-colors duration-500" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
+          <div className="flex items-center gap-3 mb-10 pb-6 border-b" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+            <Palette size={20} style={{ color: colors.brass }} />
+            <h2 className="text-xl font-light tracking-widest uppercase">Elevated Palette: {active.label}</h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { name: 'Deep Teal', hex: colors.teal },
-              { name: 'Warm Orange', hex: colors.orange },
-              { name: 'Mustard Gold', hex: colors.gold },
-              { name: 'Earthy Brown', hex: colors.brown }
+              { name: active.names.primary, hex: colors.midnight, desc: active.desc.primary },
+              { name: active.names.accent1, hex: colors.brass, desc: active.desc.accent1 },
+              { name: active.names.accent2, hex: colors.terracotta, desc: active.desc.accent2 },
+              { name: active.names.lightBg, hex: colors.lightBg, desc: active.desc.lightBg }
             ].map((color) => (
               <div key={color.name} className="flex flex-col group">
                 <div 
-                  className="h-32 w-full rounded-2xl mb-4 shadow-sm border transition-transform duration-300 group-hover:-translate-y-1"
+                  className="h-24 w-full rounded-lg mb-4 shadow-sm border transition-transform duration-500 group-hover:scale-[1.02]"
                   style={{ backgroundColor: color.hex, borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }}
                 />
-                <h3 className="text-lg font-bold mb-1">{color.name}</h3>
-                <p className="text-sm opacity-60 font-mono">{color.hex}</p>
+                <h3 className="text-sm font-semibold tracking-wide mb-1">{color.name}</h3>
+                <p className="text-[0.65rem] opacity-50 font-mono mb-2">{color.hex}</p>
+                <p className="text-xs opacity-60 font-light leading-snug">{color.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Grid Showcase */}
-      <main className="px-6 pb-24 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {concepts.map((concept) => (
+      {/* Grid Showcase - Part 1 */}
+      <main className="px-6 pb-12 max-w-7xl mx-auto">
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl font-light tracking-widest uppercase mb-3" style={{ fontFamily: fontThemes.editorial.primary }}>I. The Simple & Elevated Series</h2>
+          <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">Hyper-minimalist concepts relying on elegant proportions, very thin lines, and negative space to convey a high-end, established presence.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {concepts.slice(0, 10).map((concept) => (
             <div 
               key={concept.id}
-              className="group relative rounded-3xl p-8 flex flex-col h-full border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
+              className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden"
               style={{ 
-                borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-                backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FFFFFF'
+                borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF'
               }}
             >
-              {/* Logo Display Area */}
-              <div className="flex-grow flex flex-col items-center justify-center py-12">
+              <div className="flex-grow flex flex-col items-center justify-center py-10">
                 {concept.layout === 'horizontal' ? (
-                  <div className="flex flex-col sm:flex-row items-center gap-6">
+                  <div className="flex flex-col xl:flex-row items-center gap-8">
                     {concept.component}
-                    <Wordmark layout="horizontal" />
+                    <Wordmark layout="horizontal" theme={concept.fontTheme} />
                   </div>
                 ) : concept.layout === 'vertical' ? (
                   <div className="flex flex-col items-center">
                     {concept.component}
-                    <Wordmark layout="vertical" />
+                    <Wordmark layout="vertical" theme={concept.fontTheme} />
                   </div>
                 ) : (
                   <div className="flex justify-center w-full">
@@ -596,15 +509,61 @@ export default function App() {
                   </div>
                 )}
               </div>
-
-              {/* Description Area */}
-              <div className="mt-8 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}>
+              <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-bold opacity-50">Concept {concept.id < 10 ? `0${concept.id}` : concept.id}</span>
-                  <CheckCircle2 size={18} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.orange }} />
+                  <span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40">Concept {concept.id < 10 ? `0${concept.id}` : concept.id}</span>
+                  <CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{concept.title}</h3>
-                <p className="text-sm opacity-80 leading-relaxed">
+                <h3 className="text-lg tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes[concept.fontTheme].primary }}>{concept.title}</h3>
+                <p className="text-xs opacity-60 font-light leading-relaxed">
+                  {concept.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+
+      {/* Grid Showcase - Part 2 */}
+      <main className="px-6 pb-24 max-w-7xl mx-auto">
+        <div className="mb-10 text-center mt-12">
+          <h2 className="text-2xl font-light tracking-widest uppercase mb-3" style={{ fontFamily: fontThemes.editorial.primary }}>II. The Deeper Meaning Series</h2>
+          <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">Thoughtful, symbolic designs exploring global convergence, human connection, and culture without relying on literal "clipart" imagery.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {concepts.slice(10, 20).map((concept) => (
+            <div 
+              key={concept.id}
+              className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden"
+              style={{ 
+                borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+                backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF'
+              }}
+            >
+              <div className="flex-grow flex flex-col items-center justify-center py-10">
+                {concept.layout === 'horizontal' ? (
+                  <div className="flex flex-col xl:flex-row items-center gap-8">
+                    {concept.component}
+                    <Wordmark layout="horizontal" theme={concept.fontTheme} />
+                  </div>
+                ) : concept.layout === 'vertical' ? (
+                  <div className="flex flex-col items-center">
+                    {concept.component}
+                    <Wordmark layout="vertical" theme={concept.fontTheme} />
+                  </div>
+                ) : (
+                  <div className="flex justify-center w-full">
+                    {concept.component}
+                  </div>
+                )}
+              </div>
+              <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40">Concept {concept.id < 10 ? `0${concept.id}` : concept.id}</span>
+                  <CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} />
+                </div>
+                <h3 className="text-lg tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes[concept.fontTheme].primary }}>{concept.title}</h3>
+                <p className="text-xs opacity-60 font-light leading-relaxed">
                   {concept.desc}
                 </p>
               </div>
@@ -614,9 +573,9 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-12 text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}>
-        <p className="font-bold tracking-wider uppercase text-sm opacity-60 flex items-center justify-center gap-2">
-          Designed for The Mosaic LLC by Agency 6 <ArrowRight size={14}/> 2026
+      <footer className="border-t py-16 text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+        <p className="font-light tracking-widest uppercase text-[0.65rem] opacity-50 flex items-center justify-center gap-2">
+          Designed for The Mosaic LLC <ArrowRight size={12}/> 2026
         </p>
       </footer>
     </div>
