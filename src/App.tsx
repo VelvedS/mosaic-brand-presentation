@@ -121,8 +121,18 @@ export default function App() {
   // 1. The Elegant Monogram (Ultra-thin, sophisticated M)
   const Logo1 = () => (
     <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24">
-      <path d="M 20 80 L 20 20 L 50 60 L 80 20 L 80 80" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
-      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      {/* Outer and Inner sophisticated rings */}
+      <circle cx="50" cy="50" r="46" fill="none" stroke={colors.brass} strokeWidth="1" />
+      <circle cx="50" cy="50" r="41" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.4" />
+      
+      {/* The 'M' properly scaled and centered inside */}
+      <path d="M 30 65 L 30 35 L 50 55 L 70 35 L 70 65" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
+      
+      {/* Delicate cardinal accents */}
+      <circle cx="50" cy="4" r="1.5" fill={colors.terracotta} />
+      <circle cx="50" cy="96" r="1.5" fill={colors.terracotta} />
+      <circle cx="4" cy="50" r="1" fill={colors.brass} opacity="0.6" />
+      <circle cx="96" cy="50" r="1" fill={colors.brass} opacity="0.6" />
     </svg>
   );
 
