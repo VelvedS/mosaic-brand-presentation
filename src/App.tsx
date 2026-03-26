@@ -47,15 +47,15 @@ export default function App() {
     gallery: { primary: "'Optima', 'Cinzel', 'Trajan Pro', sans-serif", secondary: "'Avenir', 'Helvetica Neue', sans-serif" }
   };
 
-  interface WordmarkProps { layout?: 'vertical' | 'horizontal' | 'integrated'; className?: string; theme?: keyof typeof fontThemes; IntegratedIcon?: React.FC; }
+  interface WordmarkProps { layout?: 'vertical' | 'horizontal' | 'integrated'; className?: string; theme?: keyof typeof fontThemes; integratedElement?: React.ReactNode; }
 
-  const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '', theme = 'editorial', IntegratedIcon }) => {
+  const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '', theme = 'editorial', integratedElement }) => {
     const { primary, secondary } = fontThemes[theme];
-    if (layout === 'integrated' && IntegratedIcon) return (
+    if (layout === 'integrated' && integratedElement) return (
       <div className={`flex flex-col items-center mt-6 ${className}`} style={{ fontFamily: secondary }}>
         <div className="text-[0.6rem] tracking-[0.4em] font-light mb-2">THE</div>
         <div className="flex items-center text-4xl sm:text-5xl font-light uppercase tracking-widest" style={{ fontFamily: primary }}>
-          <span className="mr-1">M</span><div className="w-10 h-10 sm:w-12 sm:h-12 -mt-2"><IntegratedIcon /></div><span className="ml-1">SAIC</span>
+          <span className="mr-1">M</span><div className="w-10 h-10 sm:w-12 sm:h-12 -mt-2">{integratedElement}</div><span className="ml-1">SAIC</span>
         </div>
         <div className="text-[0.55rem] font-light tracking-[0.3em] mt-3 opacity-60 text-center uppercase">International Bistro + Social</div>
       </div>
@@ -262,7 +262,7 @@ export default function App() {
           {concepts.slice(0, 11).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} IntegratedIcon={concept.component.type} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
+                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} integratedElement={concept.component} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
               </div>
               <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2"><span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>Concept {concept.id}</span><CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} /></div>
@@ -284,7 +284,7 @@ export default function App() {
           {concepts.slice(11, 19).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} IntegratedIcon={concept.component.type} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
+                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} integratedElement={concept.component} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
               </div>
               <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2"><span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>Concept {concept.id}</span><CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} /></div>
@@ -306,7 +306,7 @@ export default function App() {
           {concepts.slice(19, 30).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} IntegratedIcon={concept.component.type} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
+                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} integratedElement={concept.component} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
               </div>
               <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2"><span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>Concept {concept.id}</span><CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} /></div>
@@ -328,7 +328,7 @@ export default function App() {
           {concepts.slice(30, 40).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} IntegratedIcon={concept.component.type} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
+                {concept.layout === 'integrated' ? <Wordmark layout="integrated" theme={concept.fontTheme} integratedElement={concept.component} className="w-full" /> : concept.layout === 'horizontal' ? <div className="flex flex-col xl:flex-row items-center gap-8">{concept.component}<Wordmark layout="horizontal" theme={concept.fontTheme} /></div> : <div className="flex flex-col items-center">{concept.component}<Wordmark layout="vertical" theme={concept.fontTheme} /></div>}
               </div>
               <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2"><span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>Concept {concept.id}</span><CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: colors.brass }} /></div>
