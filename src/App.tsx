@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Moon, Sun, ArrowRight, CheckCircle2, Globe2, Type, Palette } from 'lucide-react';
+import { Moon, Sun, ArrowRight, CheckCircle2, Globe2 } from 'lucide-react';
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
