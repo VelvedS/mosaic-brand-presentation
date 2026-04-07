@@ -65,7 +65,6 @@ export default function App() {
 
   // --- I. THE FAVORITES (Originals) --- //
   const L2 = () => {
-    // FIX: changed JSX.Element[] to React.ReactElement[]
     const d: React.ReactElement[] = [];
     for(let i=0; i<40; i++) {
       const a = Math.random()*Math.PI*2, r = Math.random()*40;
@@ -101,12 +100,9 @@ export default function App() {
     </SvgWrap>
   );
 
-
   // --- II. THE FUSIONS (Meshed Concepts) --- //
 
-  // Fusion 1: The Stardust Canvas
   const Mesh1 = () => {
-    // FIX: changed JSX.Element[] to React.ReactElement[]
     const dots: React.ReactElement[] = [];
     for(let i=0; i<45; i++) {
        const a = Math.random() * Math.PI * 2;
@@ -122,9 +118,7 @@ export default function App() {
     );
   };
 
-  // Fusion 2: The Orbital Monogram
   const Mesh2 = () => {
-    // FIX: changed JSX.Element[] to React.ReactElement[]
     const dots: React.ReactElement[] = [];
     for(let i=0; i<60; i++) {
        const a = Math.random() * Math.PI * 2;
@@ -144,12 +138,8 @@ export default function App() {
     );
   };
 
-  // Fusion 3: The Constellation Canvas
   const Mesh3 = () => {
-    const nodes = [
-      [30, 40], [45, 25], [65, 35], [55, 60], [35, 70]
-    ];
-    // FIX: changed JSX.Element[] to React.ReactElement[]
+    const nodes = [[30, 40], [45, 25], [65, 35], [55, 60], [35, 70]];
     const dots: React.ReactElement[] = [];
     for(let i=0; i<20; i++) {
        const a = Math.random() * Math.PI * 2;
@@ -170,7 +160,6 @@ export default function App() {
     );
   };
 
-  // Fusion 4: The Horizon Weaver
   const Mesh4 = () => (
     <SvgWrap>
       <path d="M 20 90 L 20 40 A 30 30 0 0 1 80 40 L 80 90" fill="none" stroke={colors.brass} strokeWidth="1.5" />
@@ -181,7 +170,6 @@ export default function App() {
     </SvgWrap>
   );
 
-  // Fusion 5: The Fluted Midnight Plate
   const Mesh5 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="42" fill={colors.midnight} />
@@ -198,7 +186,6 @@ export default function App() {
     </SvgWrap>
   );
 
-  // Fusion 6: The Etched Glass Plate
   const Mesh6 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="1.5" />
@@ -207,20 +194,19 @@ export default function App() {
         <clipPath id="innerPlate"><circle cx="50" cy="50" r="40" /></clipPath>
       </defs>
       <g clipPath="url(#innerPlate)">
-         <line x1="20" y1="10" x2="20" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
-         <line x1="30" y1="10" x2="30" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
-         <line x1="40" y1="10" x2="40" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
-         <line x1="50" y1="10" x2="50" y2="90" stroke={colors.terracotta} strokeWidth="2" />
-         <line x1="60" y1="10" x2="60" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
-         <line x1="70" y1="10" x2="70" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
-         <line x1="80" y1="10" x2="80" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
-         <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.midnight} strokeWidth="5" strokeLinejoin="round" />
-         <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
+        <line x1="20" y1="10" x2="20" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
+        <line x1="30" y1="10" x2="30" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
+        <line x1="40" y1="10" x2="40" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
+        <line x1="50" y1="10" x2="50" y2="90" stroke={colors.terracotta} strokeWidth="2" />
+        <line x1="60" y1="10" x2="60" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
+        <line x1="70" y1="10" x2="70" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
+        <line x1="80" y1="10" x2="80" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
+        <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.midnight} strokeWidth="5" strokeLinejoin="round" />
+        <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
       </g>
     </SvgWrap>
   );
 
-  // Fusion 7: The Etched Sunburst
   const Mesh7 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="44" fill={colors.midnight} stroke={colors.brass} strokeWidth="1" />
@@ -232,13 +218,12 @@ export default function App() {
     </SvgWrap>
   );
 
-  // Fusion 8: The Fluted Rim
   const Mesh8 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill={colors.midnight} />
       {[...Array(36)].map((_, i) => {
         const angle = i * 10 * Math.PI / 180;
-        return <line key={`flute${i}`} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
+        return <line key={`flute${i}`} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />;
       })}
       <circle cx="50" cy="50" r="36" fill="none" stroke={currentBg} strokeWidth="2" />
       <circle cx="50" cy="50" r="34" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -247,18 +232,18 @@ export default function App() {
   );
 
   const concepts: Array<{ id: number | string; title: string; desc: string; component: React.ReactNode; layout: 'horizontal' | 'vertical'; }> = [
-    { id: 2, title: 'Concept 02: Scattered Mosaic', desc: 'The original favorite: Dozens of distinct, scattered points forming a unified sphere.', component: <L2 />, layout: 'vertical' },
-    { id: 31, title: 'Concept 31: Empty Canvas', desc: 'The original favorite: A massive, thin circle with a pristine monogram pushed to the edge.', component: <L31 />, layout: 'vertical' },
-    { id: 20, title: 'Concept 20: Perfect Plate', desc: 'The original favorite: Subtle, culinary-focused, and highly elevated Michelin-star feel.', component: <L20 />, layout: 'vertical' },
-    { id: 21, title: 'Concept 21: Fluted Glass', desc: 'The original favorite: Inspired by premium fluted bistro glassware and Cathedral organs.', component: <L21 />, layout: 'vertical' },
-    { id: 'F1', title: 'Fusion 1: The Stardust Canvas', desc: 'Meshing 2 & 31. The massive canvas ring holds elegant scattered dots inside, while the signature monogram rests beautifully on the right boundary.', component: <Mesh1 />, layout: 'horizontal' },
-    { id: 'F2', title: 'Fusion 2: The Orbital Monogram', desc: 'Meshing 2 & 31. Mirroring the elegance of Fusion 1, the monogram anchors the left boundary. The twist: an ethereal celestial orbit sweeps through the stardust.', component: <Mesh2 />, layout: 'horizontal' },
-    { id: 'F3', title: 'Fusion 3: The Constellation Canvas', desc: 'Meshing 2 & 31. The vast empty canvas houses a delicate, connected network of stardust—evoking a global constellation—anchored by an elegant edge monogram.', component: <Mesh3 />, layout: 'horizontal' },
-    { id: 'F4', title: 'Fusion 4: The Horizon Weaver', desc: 'An architectural archway housing a delicate, woven chevron motif that represents the connection of diverse cultures.', component: <Mesh4 />, layout: 'horizontal' },
-    { id: 'F5', title: 'Fusion 5: The Fluted Midnight Plate', desc: 'Meshing 20 & 21. The dark plate is overlaid with striking architectural flutes, allowing the plate monogram to shine through.', component: <Mesh5 />, layout: 'vertical' },
-    { id: 'F6', title: 'Fusion 6: The Etched Glass Plate', desc: 'Meshing 20 & 21. The plate is constructed entirely out of fluted glass, with the monogram elegantly etched into the negative space.', component: <Mesh6 />, layout: 'horizontal' },
-    { id: 'F7', title: 'Fusion 7: The Etched Sunburst', desc: 'Meshing 20 & 21. A midnight plate with exquisite radiating flutes echoing a luxury watch face, centered on the signature M.', component: <Mesh7 />, layout: 'vertical' },
-    { id: 'F8', title: 'Fusion 8: The Fluted Rim', desc: 'Meshing 20 & 21. A dark, moody plate elevated by a textured, fluted glass rim, framing an exquisite minimalist monogram at its core.', component: <Mesh8 />, layout: 'horizontal' }
+    { id: 2,    title: 'Concept 02: Scattered Mosaic',       desc: 'The original favorite: Dozens of distinct, scattered points forming a unified sphere.',                                                                                         component: <L2 />,    layout: 'vertical' },
+    { id: 31,   title: 'Concept 31: Empty Canvas',           desc: 'The original favorite: A massive, thin circle with a pristine monogram pushed to the edge.',                                                                                    component: <L31 />,   layout: 'vertical' },
+    { id: 20,   title: 'Concept 20: Perfect Plate',          desc: 'The original favorite: Subtle, culinary-focused, and highly elevated Michelin-star feel.',                                                                                      component: <L20 />,   layout: 'vertical' },
+    { id: 21,   title: 'Concept 21: Fluted Glass',           desc: 'The original favorite: Inspired by premium fluted bistro glassware and Cathedral organs.',                                                                                      component: <L21 />,   layout: 'vertical' },
+    { id: 'F1', title: 'Fusion 1: The Stardust Canvas',      desc: 'Meshing 2 & 31. The massive canvas ring holds elegant scattered dots inside, while the signature monogram rests beautifully on the right boundary.',                           component: <Mesh1 />, layout: 'vertical' },
+    { id: 'F2', title: 'Fusion 2: The Orbital Monogram',     desc: 'Meshing 2 & 31. Mirroring the elegance of Fusion 1, the monogram anchors the left boundary. The twist: an ethereal celestial orbit sweeps through the stardust.',             component: <Mesh2 />, layout: 'vertical' },
+    { id: 'F3', title: 'Fusion 3: The Constellation Canvas', desc: 'Meshing 2 & 31. The vast empty canvas houses a delicate, connected network of stardust—evoking a global constellation—anchored by an elegant edge monogram.',                  component: <Mesh3 />, layout: 'vertical' },
+    { id: 'F4', title: 'Fusion 4: The Horizon Weaver',       desc: 'An architectural archway housing a delicate, woven chevron motif that represents the connection of diverse cultures.',                                                          component: <Mesh4 />, layout: 'vertical' },
+    { id: 'F5', title: 'Fusion 5: The Fluted Midnight Plate',desc: 'Meshing 20 & 21. The dark plate is overlaid with striking architectural flutes, allowing the plate monogram to shine through.',                                                 component: <Mesh5 />, layout: 'vertical' },
+    { id: 'F6', title: 'Fusion 6: The Etched Glass Plate',   desc: 'Meshing 20 & 21. The plate is constructed entirely out of fluted glass, with the monogram elegantly etched into the negative space.',                                          component: <Mesh6 />, layout: 'vertical' },
+    { id: 'F7', title: 'Fusion 7: The Etched Sunburst',      desc: 'Meshing 20 & 21. A midnight plate with exquisite radiating flutes echoing a luxury watch face, centered on the signature M.',                                                  component: <Mesh7 />, layout: 'vertical' },
+    { id: 'F8', title: 'Fusion 8: The Fluted Rim',           desc: 'Meshing 20 & 21. A dark, moody plate elevated by a textured, fluted glass rim, framing an exquisite minimalist monogram at its core.',                                        component: <Mesh8 />, layout: 'vertical' },
   ];
 
   return (
@@ -290,27 +275,20 @@ export default function App() {
         </div>
       </header>
 
-      {/* CATEGORY I: THE FAVORITES */}
+      {/* CATEGORY I: THE ORIGINALS */}
       <main className="px-6 pb-12 max-w-7xl mx-auto">
         <div className="mb-10 text-center mt-6">
           <h2 className="text-2xl font-light tracking-widest uppercase mb-3" style={{ fontFamily: fontThemes.editorial.primary }}>I. The Originals</h2>
           <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">The unedited favorites pulled directly from the previous library.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {concepts.slice(0, 4).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'horizontal' ? (
-                  <div className="flex flex-col xl:flex-row items-center gap-8">
-                    {concept.component}
-                    <Wordmark layout="horizontal" />
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    {concept.component}
-                    <Wordmark layout="vertical" />
-                  </div>
-                )}
+                <div className="flex flex-col items-center">
+                  {concept.component}
+                  <Wordmark layout="vertical" />
+                </div>
               </div>
               <div className="mt-6 pt-6 border-t text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <h3 className="text-lg tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes.editorial.primary }}>{concept.title}</h3>
@@ -332,20 +310,12 @@ export default function App() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {concepts.slice(4).map((concept) => (
-            // FIX: removed invalid `ringColor` CSS property from inline style
             <div key={concept.id} className="group relative rounded-xl p-12 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
-                {concept.layout === 'horizontal' ? (
-                  <div className="flex flex-col xl:flex-row items-center gap-8">
-                    {concept.component}
-                    <Wordmark layout="horizontal" />
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    {concept.component}
-                    <Wordmark layout="vertical" />
-                  </div>
-                )}
+                <div className="flex flex-col items-center">
+                  {concept.component}
+                  <Wordmark layout="vertical" />
+                </div>
               </div>
               <div className="mt-8 pt-8 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center justify-between mb-2">
@@ -361,7 +331,7 @@ export default function App() {
       </main>
 
       <footer className="border-t py-16 text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-        <p className="font-light tracking-widest uppercase text-[0.65rem] opacity-50 flex items-center justify-center gap-2">Designed for The Mosaic LLC <ArrowRight size={12}/> 2026</p>
+        <p className="font-light tracking-widest uppercase text-[0.65rem] opacity-50 flex items-center justify-center gap-2">Designed for The Mosaic LLC <ArrowRight size={12} /> 2026</p>
       </footer>
     </div>
   );
