@@ -160,7 +160,7 @@ export default function App() {
         <path d="M 45 25 L 55 60" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
         {/* Nodes */}
         {nodes.map((pt, i) => (
-          <circle key={i} cx={pt[0]} cy={pt[1]} r={2} fill={colors.terracotta} />
+          <circle key={`node${i}`} cx={pt[0]} cy={pt[1]} r={2} fill={colors.terracotta} />
         ))}
         {/* Scattered Stardust */}
         {dots}
@@ -228,7 +228,7 @@ export default function App() {
     <SvgWrap>
       <circle cx="50" cy="50" r="44" fill={colors.midnight} stroke={colors.brass} strokeWidth="1" />
       {[...Array(24)].map((_, i) => (
-        <line key={i} x1="50" y1="50" x2={50 + 38 * Math.cos((i * 15 * Math.PI) / 180)} y2={50 + 38 * Math.sin((i * 15 * Math.PI) / 180)} stroke={colors.brass} strokeWidth="0.5" opacity="0.3" />
+        <line key={`sunburst${i}`} x1="50" y1="50" x2={50 + 38 * Math.cos((i * 15 * Math.PI) / 180)} y2={50 + 38 * Math.sin((i * 15 * Math.PI) / 180)} stroke={colors.brass} strokeWidth="0.5" opacity="0.3" />
       ))}
       <circle cx="50" cy="50" r="12" fill={currentBg} stroke={colors.terracotta} strokeWidth="1" />
       <path d="M 44 54 L 44 46 L 50 50 L 56 46 L 56 54" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
@@ -242,7 +242,7 @@ export default function App() {
       {/* Fluted Rim */}
       {[...Array(36)].map((_, i) => {
         const angle = i * 10 * Math.PI / 180;
-        return <line key={i} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
+        return <line key={`flute${i}`} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
       })}
       <circle cx="50" cy="50" r="36" fill="none" stroke={currentBg} strokeWidth="2" />
       <circle cx="50" cy="50" r="34" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -306,10 +306,18 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {concepts.slice(0, 4).map((concept) => (
             <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
-              <div className="flex-grow flex flex-col items-center justify-center py-6">
-                <div className="flex flex-col items-center">
-                  {concept.component}
-                </div>
+              <div className="flex-grow flex flex-col items-center justify-center py-10">
+                {concept.layout === 'horizontal' ? (
+                  <div className="flex flex-col xl:flex-row items-center gap-8">
+                    {concept.component}
+                    <Wordmark layout="horizontal" />
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    {concept.component}
+                    <Wordmark layout="vertical" />
+                  </div>
+                )}
               </div>
               <div className="mt-6 pt-6 border-t text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
                 <h3 className="text-lg tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes.editorial.primary }}>{concept.title}</h3>
