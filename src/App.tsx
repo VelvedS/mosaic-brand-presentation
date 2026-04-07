@@ -64,13 +64,14 @@ export default function App() {
   const SvgWrap = ({ children }: { children: React.ReactNode }) => <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-sm">{children}</svg>;
 
   // --- I. THE FAVORITES (Originals) --- //
-  const L2 = () => { 
-    const d: JSX.Element[] = []; 
-    for(let i=0; i<40; i++) { 
-      const a = Math.random()*Math.PI*2, r = Math.random()*40; 
-      d.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.6?colors.brass:(Math.random()>0.5?colors.terracotta:currentText)} opacity={0.8} />); 
-    } 
-    return <SvgWrap>{d}<circle cx="50" cy="50" r="42" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" /></SvgWrap>; 
+  const L2 = () => {
+    // FIX: changed JSX.Element[] to React.ReactElement[]
+    const d: React.ReactElement[] = [];
+    for(let i=0; i<40; i++) {
+      const a = Math.random()*Math.PI*2, r = Math.random()*40;
+      d.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.6?colors.brass:(Math.random()>0.5?colors.terracotta:currentText)} opacity={0.8} />);
+    }
+    return <SvgWrap>{d}<circle cx="50" cy="50" r="42" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" /></SvgWrap>;
   };
 
   const L31 = () => (
@@ -103,12 +104,13 @@ export default function App() {
 
   // --- II. THE FUSIONS (Meshed Concepts) --- //
 
-  // Fusion 1: The Stardust Canvas (Untouched)
+  // Fusion 1: The Stardust Canvas
   const Mesh1 = () => {
-    const dots: JSX.Element[] = [];
+    // FIX: changed JSX.Element[] to React.ReactElement[]
+    const dots: React.ReactElement[] = [];
     for(let i=0; i<45; i++) {
        const a = Math.random() * Math.PI * 2;
-       const r = Math.random() * 42; 
+       const r = Math.random() * 42;
        dots.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.5?colors.brass:colors.terracotta} opacity={Math.random()*0.8 + 0.2} />);
     }
     return (
@@ -120,15 +122,16 @@ export default function App() {
     );
   };
 
-  // Fusion 2: The Orbital Monogram (Untouched)
+  // Fusion 2: The Orbital Monogram
   const Mesh2 = () => {
-    const dots: JSX.Element[] = [];
+    // FIX: changed JSX.Element[] to React.ReactElement[]
+    const dots: React.ReactElement[] = [];
     for(let i=0; i<60; i++) {
        const a = Math.random() * Math.PI * 2;
-       const r = Math.random() * 42; 
+       const r = Math.random() * 42;
        const cx = 50 + r * Math.cos(a);
        const cy = 50 + r * Math.sin(a);
-       const opacityMult = Math.max(0.1, 1.2 - (cx / 100)); 
+       const opacityMult = Math.max(0.1, 1.2 - (cx / 100));
        dots.push(<circle key={i} cx={cx} cy={cy} r={Math.random()*1.5+0.5} fill={Math.random()>0.5?colors.brass:colors.terracotta} opacity={(Math.random()*0.8 + 0.2) * opacityMult} />);
     }
     return (
@@ -146,7 +149,8 @@ export default function App() {
     const nodes = [
       [30, 40], [45, 25], [65, 35], [55, 60], [35, 70]
     ];
-    const dots: JSX.Element[] = [];
+    // FIX: changed JSX.Element[] to React.ReactElement[]
+    const dots: React.ReactElement[] = [];
     for(let i=0; i<20; i++) {
        const a = Math.random() * Math.PI * 2;
        const r = Math.random() * 40;
@@ -155,35 +159,29 @@ export default function App() {
     return (
       <SvgWrap>
         <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-        {/* Constellation lines */}
         <path d="M 30 40 L 45 25 L 65 35 L 55 60 L 35 70 Z" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
         <path d="M 45 25 L 55 60" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
-        {/* Nodes */}
         {nodes.map((pt, i) => (
           <circle key={`node${i}`} cx={pt[0]} cy={pt[1]} r={2} fill={colors.terracotta} />
         ))}
-        {/* Scattered Stardust */}
         {dots}
-        {/* Edge Monogram */}
         <path d="M 70 80 L 70 60 L 80 70 L 90 60 L 90 80" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
       </SvgWrap>
     );
   };
 
-  // Fusion 4: The Horizon Weaver (Minimalist Ethnic Arch)
+  // Fusion 4: The Horizon Weaver
   const Mesh4 = () => (
     <SvgWrap>
       <path d="M 20 90 L 20 40 A 30 30 0 0 1 80 40 L 80 90" fill="none" stroke={colors.brass} strokeWidth="1.5" />
       <line x1="10" y1="90" x2="90" y2="90" stroke={currentText} strokeWidth="1" />
-      {/* Woven chevron motif */}
       <path d="M 30 75 L 50 60 L 70 75" fill="none" stroke={colors.terracotta} strokeWidth="1.5" strokeLinejoin="round" />
       <path d="M 30 85 L 50 70 L 70 85" fill="none" stroke={colors.terracotta} strokeWidth="1.5" strokeLinejoin="round" opacity="0.5" />
-      {/* Anchored Monogram */}
       <path d="M 40 50 L 40 30 L 50 40 L 60 30 L 60 50" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
     </SvgWrap>
   );
 
-  // Fusion 5: The Fluted Midnight Plate (Untouched)
+  // Fusion 5: The Fluted Midnight Plate
   const Mesh5 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="42" fill={colors.midnight} />
@@ -200,7 +198,7 @@ export default function App() {
     </SvgWrap>
   );
 
-  // Fusion 6: The Etched Glass Plate (Untouched)
+  // Fusion 6: The Etched Glass Plate
   const Mesh6 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="1.5" />
@@ -216,14 +214,13 @@ export default function App() {
          <line x1="60" y1="10" x2="60" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
          <line x1="70" y1="10" x2="70" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
          <line x1="80" y1="10" x2="80" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
-         
          <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.midnight} strokeWidth="5" strokeLinejoin="round" />
          <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
       </g>
     </SvgWrap>
   );
 
-  // Fusion 7: The Etched Sunburst (Untouched)
+  // Fusion 7: The Etched Sunburst
   const Mesh7 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="44" fill={colors.midnight} stroke={colors.brass} strokeWidth="1" />
@@ -235,18 +232,16 @@ export default function App() {
     </SvgWrap>
   );
 
-  // Fusion 8: The Fluted Rim (Untouched)
+  // Fusion 8: The Fluted Rim
   const Mesh8 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill={colors.midnight} />
-      {/* Fluted Rim */}
       {[...Array(36)].map((_, i) => {
         const angle = i * 10 * Math.PI / 180;
         return <line key={`flute${i}`} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
       })}
       <circle cx="50" cy="50" r="36" fill="none" stroke={currentBg} strokeWidth="2" />
       <circle cx="50" cy="50" r="34" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-      {/* Center Element */}
       <path d="M 40 55 L 40 40 L 50 50 L 60 40 L 60 55" fill="none" stroke={colors.lightBg} strokeWidth="2" strokeLinejoin="round" />
     </SvgWrap>
   );
@@ -256,8 +251,6 @@ export default function App() {
     { id: 31, title: 'Concept 31: Empty Canvas', desc: 'The original favorite: A massive, thin circle with a pristine monogram pushed to the edge.', component: <L31 />, layout: 'vertical' },
     { id: 20, title: 'Concept 20: Perfect Plate', desc: 'The original favorite: Subtle, culinary-focused, and highly elevated Michelin-star feel.', component: <L20 />, layout: 'vertical' },
     { id: 21, title: 'Concept 21: Fluted Glass', desc: 'The original favorite: Inspired by premium fluted bistro glassware and Cathedral organs.', component: <L21 />, layout: 'vertical' },
-    
-    // Fusions
     { id: 'F1', title: 'Fusion 1: The Stardust Canvas', desc: 'Meshing 2 & 31. The massive canvas ring holds elegant scattered dots inside, while the signature monogram rests beautifully on the right boundary.', component: <Mesh1 />, layout: 'horizontal' },
     { id: 'F2', title: 'Fusion 2: The Orbital Monogram', desc: 'Meshing 2 & 31. Mirroring the elegance of Fusion 1, the monogram anchors the left boundary. The twist: an ethereal celestial orbit sweeps through the stardust.', component: <Mesh2 />, layout: 'horizontal' },
     { id: 'F3', title: 'Fusion 3: The Constellation Canvas', desc: 'Meshing 2 & 31. The vast empty canvas houses a delicate, connected network of stardust—evoking a global constellation—anchored by an elegant edge monogram.', component: <Mesh3 />, layout: 'horizontal' },
@@ -339,7 +332,8 @@ export default function App() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {concepts.slice(4).map((concept) => (
-            <div key={concept.id} className="group relative rounded-xl p-12 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', ringColor: colors.brass, boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
+            // FIX: removed invalid `ringColor` CSS property from inline style
+            <div key={concept.id} className="group relative rounded-xl p-12 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-10">
                 {concept.layout === 'horizontal' ? (
                   <div className="flex flex-col xl:flex-row items-center gap-8">
