@@ -65,7 +65,7 @@ export default function App() {
 
   // --- I. THE FAVORITES (Originals) --- //
   const L2 = () => { 
-    const d = []; 
+    const d: JSX.Element[] = []; 
     for(let i=0; i<40; i++) { 
       const a = Math.random()*Math.PI*2, r = Math.random()*40; 
       d.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.6?colors.brass:(Math.random()>0.5?colors.terracotta:currentText)} opacity={0.8} />); 
@@ -105,7 +105,7 @@ export default function App() {
 
   // Fusion 1: The Stardust Canvas (Untouched)
   const Mesh1 = () => {
-    const dots = [];
+    const dots: JSX.Element[] = [];
     for(let i=0; i<45; i++) {
        const a = Math.random() * Math.PI * 2;
        const r = Math.random() * 42; 
@@ -122,7 +122,7 @@ export default function App() {
 
   // Fusion 2: The Orbital Monogram (Untouched)
   const Mesh2 = () => {
-    const dots = [];
+    const dots: JSX.Element[] = [];
     for(let i=0; i<60; i++) {
        const a = Math.random() * Math.PI * 2;
        const r = Math.random() * 42; 
@@ -141,11 +141,17 @@ export default function App() {
     );
   };
 
-  // NEW FUSION 3: The Constellation Canvas
+  // Fusion 3: The Constellation Canvas
   const Mesh3 = () => {
     const nodes = [
       [30, 40], [45, 25], [65, 35], [55, 60], [35, 70]
     ];
+    const dots: JSX.Element[] = [];
+    for(let i=0; i<20; i++) {
+       const a = Math.random() * Math.PI * 2;
+       const r = Math.random() * 40;
+       dots.push(<circle key={`star${i}`} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={0.8} fill={colors.brass} opacity="0.8" />);
+    }
     return (
       <SvgWrap>
         <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -157,18 +163,14 @@ export default function App() {
           <circle key={i} cx={pt[0]} cy={pt[1]} r={2} fill={colors.terracotta} />
         ))}
         {/* Scattered Stardust */}
-        {[...Array(20)].map((_, i) => {
-           const a = Math.random() * Math.PI * 2;
-           const r = Math.random() * 40;
-           return <circle key={`star${i}`} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={0.8} fill={colors.brass} opacity="0.8" />
-        })}
+        {dots}
         {/* Edge Monogram */}
         <path d="M 70 80 L 70 60 L 80 70 L 90 60 L 90 80" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
       </SvgWrap>
     );
   };
 
-  // NEW FUSION 4: The Horizon Weaver (Minimalist Ethnic Arch)
+  // Fusion 4: The Horizon Weaver (Minimalist Ethnic Arch)
   const Mesh4 = () => (
     <SvgWrap>
       <path d="M 20 90 L 20 40 A 30 30 0 0 1 80 40 L 80 90" fill="none" stroke={colors.brass} strokeWidth="1.5" />
@@ -233,7 +235,7 @@ export default function App() {
     </SvgWrap>
   );
 
-  // NEW FUSION 8: The Fluted Rim
+  // Fusion 8: The Fluted Rim (Untouched)
   const Mesh8 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill={colors.midnight} />
