@@ -242,7 +242,7 @@ export default function App() {
       <main className="px-6 pb-24 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {concepts.map((concept) => (
-            <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', ringColor: colors.brass, boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
+            <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
               <div className="flex-grow flex flex-col items-center justify-center py-8">
                 {concept.layout === 'horizontal' ? (
                   <div className="flex flex-col xl:flex-row items-center gap-8">
