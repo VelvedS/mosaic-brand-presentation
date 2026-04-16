@@ -1,6 +1,34 @@
 import React, { useState } from 'react';
 import { Moon, Sun, ArrowRight, CheckCircle2, Globe2 } from 'lucide-react';
 
+// Moved outside to prevent nested component recreation and clear strict ESLint rules
+const fontThemes = {
+  editorial: { primary: "'Didot', 'Bodoni MT', 'Playfair Display', serif", secondary: "'Montserrat', sans-serif" }
+};
+
+interface WordmarkProps { layout?: 'vertical' | 'horizontal'; className?: string; theme?: keyof typeof fontThemes; }
+
+const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '', theme = 'editorial' }) => {
+  const { primary, secondary } = fontThemes[theme];
+  if (layout === 'horizontal') return (
+    <div className={`flex flex-col justify-center ${className}`} style={{ fontFamily: secondary }}>
+      <div className="flex items-baseline space-x-2 mb-1"><span className="text-sm tracking-[0.3em] font-light">THE</span><span className="text-4xl tracking-widest font-light uppercase" style={{ fontFamily: primary }}>MOSAIC</span></div>
+      <span className="text-[0.55rem] tracking-[0.3em] uppercase opacity-60">International Bistro + Social</span>
+    </div>
+  );
+  return (
+    <div className={`flex flex-col items-center mt-6 ${className}`} style={{ fontFamily: secondary }}>
+      <div className="text-[0.6rem] tracking-[0.4em] font-light mb-2">THE</div>
+      <div className="text-4xl sm:text-5xl tracking-[0.15em] font-light uppercase" style={{ fontFamily: primary }}>MOSAIC</div>
+      <div className="text-[0.55rem] font-light tracking-[0.3em] mt-3 opacity-60 text-center uppercase">International Bistro + Social</div>
+    </div>
+  );
+};
+
+const SvgWrap = ({ children }: { children: React.ReactNode }) => (
+  <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-sm">{children}</svg>
+);
+
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [activeScheme, setActiveScheme] = useState<'midnight' | 'emerald' | 'onyx' | 'crimson' | 'cobalt'>('midnight');
@@ -38,35 +66,11 @@ export default function App() {
   const currentBg = isDarkMode ? colors.darkBg : colors.lightBg;
   const currentText = isDarkMode ? colors.lightText : colors.darkText;
 
-  const fontThemes = {
-    editorial: { primary: "'Didot', 'Bodoni MT', 'Playfair Display', serif", secondary: "'Montserrat', sans-serif" }
-  };
-
-  interface WordmarkProps { layout?: 'vertical' | 'horizontal'; className?: string; theme?: keyof typeof fontThemes; }
-
-  const Wordmark: React.FC<WordmarkProps> = ({ layout = 'vertical', className = '', theme = 'editorial' }) => {
-    const { primary, secondary } = fontThemes[theme];
-    if (layout === 'horizontal') return (
-      <div className={`flex flex-col justify-center ${className}`} style={{ fontFamily: secondary }}>
-        <div className="flex items-baseline space-x-2 mb-1"><span className="text-sm tracking-[0.3em] font-light">THE</span><span className="text-4xl tracking-widest font-light uppercase" style={{ fontFamily: primary }}>MOSAIC</span></div>
-        <span className="text-[0.55rem] tracking-[0.3em] uppercase opacity-60">International Bistro + Social</span>
-      </div>
-    );
-    return (
-      <div className={`flex flex-col items-center mt-6 ${className}`} style={{ fontFamily: secondary }}>
-        <div className="text-[0.6rem] tracking-[0.4em] font-light mb-2">THE</div>
-        <div className="text-4xl sm:text-5xl tracking-[0.15em] font-light uppercase" style={{ fontFamily: primary }}>MOSAIC</div>
-        <div className="text-[0.55rem] font-light tracking-[0.3em] mt-3 opacity-60 text-center uppercase">International Bistro + Social</div>
-      </div>
-    );
-  };
-
-  const SvgWrap = ({ children }: { children: React.ReactNode }) => <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-sm">{children}</svg>;
-
   // --- FINAL VARIATIONS --- //
+  // Refactored as standard JSX variables instead of nested functional components to satisfy strict Vercel ESLint builds
 
   // Variation 1: The Direct Request (M centered vertically, dot kept in original top-left spot)
-  const Var1 = () => (
+  const var1 = (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
       <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
@@ -75,7 +79,7 @@ export default function App() {
   );
 
   // Variation 2: True Symmetry (M centered, dot dropped to center left to perfectly balance it)
-  const Var2 = () => (
+  const var2 = (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
       <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
@@ -84,7 +88,7 @@ export default function App() {
   );
 
   // Variation 3: The Edge Lock (M centered and pushed to overlap the ring)
-  const Var3 = () => (
+  const var3 = (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
       <path d="M 70 60 L 70 40 L 80 50 L 90 40 L 90 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
@@ -93,7 +97,7 @@ export default function App() {
   );
 
   // Variation 4: The Delicate Scale (M centered, scaled down slightly, thinner line weight)
-  const Var4 = () => (
+  const var4 = (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
       <path d="M 70 57.5 L 70 42.5 L 77.5 50 L 85 42.5 L 85 57.5" fill="none" stroke={currentText} strokeWidth="0.75" strokeLinejoin="miter" />
@@ -102,7 +106,7 @@ export default function App() {
   );
 
   // Variation 5: The Dual Anchor (Two dots representing Bistro + Social)
-  const Var5 = () => (
+  const var5 = (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
       <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
@@ -112,7 +116,7 @@ export default function App() {
   );
 
   // Variation 6: The Open Boundary (Gap in the ring where the M sits)
-  const Var6 = () => (
+  const var6 = (
     <SvgWrap>
       {/* Circle with a precise gap on the right side */}
       <path d="M 81.8 18.2 A 45 45 0 1 0 81.8 81.8" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -122,7 +126,7 @@ export default function App() {
   );
 
   // NEW Variation 7: The Open Anchor (Combines the gap of Var 6 and the two dots of Var 5)
-  const Var7 = () => (
+  const var7 = (
     <SvgWrap>
       {/* Circle with gap on the right */}
       <path d="M 81.8 18.2 A 45 45 0 1 0 81.8 81.8" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -133,7 +137,7 @@ export default function App() {
   );
 
   // NEW Variation 8: The Dual Threshold (Gap on both sides, perfectly balanced)
-  const Var8 = () => (
+  const var8 = (
     <SvgWrap>
       {/* Top arc */}
       <path d="M 18.2 18.2 A 45 45 0 0 1 81.8 18.2" fill="none" stroke={colors.brass} strokeWidth="0.5" />
@@ -151,56 +155,56 @@ export default function App() {
       id: 1, 
       title: 'Variation 01: Direct Adjustment', 
       desc: 'The exact Empty Canvas design requested. The "M" is shifted up to sit evenly in the middle of the right side, while the accent dot remains in its original upper-left position.', 
-      component: <Var1 />, 
+      component: var1, 
       layout: 'vertical' 
     },
     { 
       id: 2, 
       title: 'Variation 02: True Symmetry', 
       desc: 'The "M" is perfectly centered on the right, and the terracotta dot is dropped to sit perfectly centered on the left, creating flawless horizontal balance.', 
-      component: <Var2 />, 
+      component: var2, 
       layout: 'vertical' 
     },
     { 
       id: 3, 
       title: 'Variation 03: The Edge Lock', 
       desc: 'The "M" is centered vertically but pushed further to the right so its outer stem gracefully intersects the brass boundary ring.', 
-      component: <Var3 />, 
+      component: var3, 
       layout: 'vertical' 
     },
     { 
       id: 4, 
       title: 'Variation 04: The Delicate Scale', 
       desc: 'The "M" is vertically centered but scaled down slightly with a thinner stroke, increasing the negative space for an ultra-premium, minimalist feel.', 
-      component: <Var4 />, 
+      component: var4, 
       layout: 'vertical' 
     },
     { 
       id: 5, 
       title: 'Variation 05: The Dual Anchor', 
       desc: 'Maintains the symmetry of Variation 2, but introduces a second terracotta dot. The two dots elegantly symbolize the dual nature of the brand: "Bistro" and "Social".', 
-      component: <Var5 />, 
+      component: var5, 
       layout: 'vertical' 
     },
     { 
       id: 6, 
       title: 'Variation 06: The Open Boundary', 
       desc: 'The brass ring intentionally breaks to allow the "M" to sit on the threshold. This subtle opening symbolizes an inclusive, welcoming environment—"Milwaukee\'s living room".', 
-      component: <Var6 />, 
+      component: var6, 
       layout: 'vertical' 
     },
     { 
       id: 7, 
       title: 'Variation 07: The Open Anchor', 
       desc: 'Combines the best of Variations 5 and 6. Features the intentional boundary gap on the right for the monogram, seamlessly paired with the dual terracotta dots on the left.', 
-      component: <Var7 />, 
+      component: var7, 
       layout: 'vertical' 
     },
     { 
       id: 8, 
       title: 'Variation 08: The Dual Threshold', 
       desc: 'The brass ring is opened on both sides—creating perfect negative space symmetry. The monogram anchors the right threshold, while the terracotta dot anchors the left.', 
-      component: <Var8 />, 
+      component: var8, 
       layout: 'vertical' 
     }
   ];
