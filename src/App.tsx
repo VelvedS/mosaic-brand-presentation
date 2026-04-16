@@ -63,200 +63,159 @@ export default function App() {
 
   const SvgWrap = ({ children }: { children: React.ReactNode }) => <svg viewBox="0 0 100 100" className="w-20 h-20 sm:w-24 sm:h-24 drop-shadow-sm">{children}</svg>;
 
-  // --- I. THE FAVORITES (Originals) --- //
-  const L2 = () => {
-    const d: React.ReactElement[] = [];
-    for(let i=0; i<40; i++) {
-      const a = Math.random()*Math.PI*2, r = Math.random()*40;
-      d.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.6?colors.brass:(Math.random()>0.5?colors.terracotta:currentText)} opacity={0.8} />);
-    }
-    return <SvgWrap>{d}<circle cx="50" cy="50" r="42" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" /></SvgWrap>;
-  };
+  // --- FINAL VARIATIONS --- //
 
-  const L31 = () => (
+  // Variation 1: The Direct Request (M centered vertically, dot kept in original top-left spot)
+  const Var1 = () => (
     <SvgWrap>
       <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-      <path d="M 65 75 L 65 55 L 75 65 L 85 55 L 85 75" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
       <circle cx="25" cy="35" r="1.5" fill={colors.terracotta} />
     </SvgWrap>
   );
 
-  const L20 = () => (
+  // Variation 2: True Symmetry (M centered, dot dropped to center left to perfectly balance it)
+  const Var2 = () => (
     <SvgWrap>
-      <circle cx="50" cy="50" r="40" fill={colors.midnight} />
-      <path d="M 35 65 L 35 35 L 50 50 L 65 35 L 65 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
-      <circle cx="50" cy="50" r="48" fill="none" stroke={colors.brass} strokeWidth="0.5" strokeDasharray="2 4" />
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <circle cx="25" cy="50" r="1.5" fill={colors.terracotta} />
     </SvgWrap>
   );
 
-  const L21 = () => (
+  // Variation 3: The Edge Lock (M centered and pushed to overlap the ring)
+  const Var3 = () => (
     <SvgWrap>
-      <rect x="30" y="20" width="1" height="60" fill={currentText} opacity="0.3" />
-      <rect x="40" y="15" width="1" height="70" fill={currentText} opacity="0.6" />
-      <rect x="50" y="10" width="1.5" height="80" fill={colors.brass} />
-      <rect x="60" y="15" width="1" height="70" fill={currentText} opacity="0.6" />
-      <rect x="70" y="20" width="1" height="60" fill={currentText} opacity="0.3" />
-      <circle cx="50" cy="50" r="45" fill="none" stroke={currentText} strokeWidth="0.5" strokeDasharray="1 3" />
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 70 60 L 70 40 L 80 50 L 90 40 L 90 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <circle cx="20" cy="50" r="1.5" fill={colors.terracotta} />
     </SvgWrap>
   );
 
-  // --- II. THE FUSIONS (Meshed Concepts) --- //
+  // Variation 4: The Delicate Scale (M centered, scaled down slightly, thinner line weight)
+  const Var4 = () => (
+    <SvgWrap>
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 70 57.5 L 70 42.5 L 77.5 50 L 85 42.5 L 85 57.5" fill="none" stroke={currentText} strokeWidth="0.75" strokeLinejoin="miter" />
+      <circle cx="25" cy="50" r="1" fill={colors.terracotta} />
+    </SvgWrap>
+  );
 
-  const Mesh1 = () => {
-    const dots: React.ReactElement[] = [];
-    for(let i=0; i<45; i++) {
-       const a = Math.random() * Math.PI * 2;
-       const r = Math.random() * 42;
-       dots.push(<circle key={i} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={Math.random()*1.5+0.5} fill={Math.random()>0.5?colors.brass:colors.terracotta} opacity={Math.random()*0.8 + 0.2} />);
+  // Variation 5: The Dual Anchor (Two dots representing Bistro + Social)
+  const Var5 = () => (
+    <SvgWrap>
+      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
+      <circle cx="25" cy="45" r="1.5" fill={colors.terracotta} />
+      <circle cx="25" cy="55" r="1.5" fill={colors.terracotta} />
+    </SvgWrap>
+  );
+
+  // Variation 6: The Open Boundary (Gap in the ring where the M sits)
+  const Var6 = () => (
+    <SvgWrap>
+      {/* Circle with a precise gap on the right side */}
+      <path d="M 81.8 18.2 A 45 45 0 1 0 81.8 81.8" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 70 60 L 70 40 L 80 50 L 90 40 L 90 60" fill="none" stroke={currentText} strokeWidth="1.25" strokeLinejoin="miter" />
+      <circle cx="25" cy="50" r="1.5" fill={colors.terracotta} />
+    </SvgWrap>
+  );
+
+  // NEW Variation 7: The Open Anchor (Combines the gap of Var 6 and the two dots of Var 5)
+  const Var7 = () => (
+    <SvgWrap>
+      {/* Circle with gap on the right */}
+      <path d="M 81.8 18.2 A 45 45 0 1 0 81.8 81.8" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      <path d="M 70 60 L 70 40 L 80 50 L 90 40 L 90 60" fill="none" stroke={currentText} strokeWidth="1.25" strokeLinejoin="miter" />
+      <circle cx="25" cy="45" r="1.5" fill={colors.terracotta} />
+      <circle cx="25" cy="55" r="1.5" fill={colors.terracotta} />
+    </SvgWrap>
+  );
+
+  // NEW Variation 8: The Dual Threshold (Gap on both sides, perfectly balanced)
+  const Var8 = () => (
+    <SvgWrap>
+      {/* Top arc */}
+      <path d="M 18.2 18.2 A 45 45 0 0 1 81.8 18.2" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      {/* Bottom arc */}
+      <path d="M 18.2 81.8 A 45 45 0 0 0 81.8 81.8" fill="none" stroke={colors.brass} strokeWidth="0.5" />
+      {/* M perfectly centered on the right threshold */}
+      <path d="M 70 60 L 70 40 L 80 50 L 90 40 L 90 60" fill="none" stroke={currentText} strokeWidth="1.25" strokeLinejoin="miter" />
+      {/* Single dot perfectly centered on the left threshold */}
+      <circle cx="25" cy="50" r="1.5" fill={colors.terracotta} />
+    </SvgWrap>
+  );
+
+  const concepts: Array<{ id: number; title: string; desc: string; component: React.ReactNode; layout: 'horizontal' | 'vertical'; }> = [
+    { 
+      id: 1, 
+      title: 'Variation 01: Direct Adjustment', 
+      desc: 'The exact Empty Canvas design requested. The "M" is shifted up to sit evenly in the middle of the right side, while the accent dot remains in its original upper-left position.', 
+      component: <Var1 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 2, 
+      title: 'Variation 02: True Symmetry', 
+      desc: 'The "M" is perfectly centered on the right, and the terracotta dot is dropped to sit perfectly centered on the left, creating flawless horizontal balance.', 
+      component: <Var2 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 3, 
+      title: 'Variation 03: The Edge Lock', 
+      desc: 'The "M" is centered vertically but pushed further to the right so its outer stem gracefully intersects the brass boundary ring.', 
+      component: <Var3 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 4, 
+      title: 'Variation 04: The Delicate Scale', 
+      desc: 'The "M" is vertically centered but scaled down slightly with a thinner stroke, increasing the negative space for an ultra-premium, minimalist feel.', 
+      component: <Var4 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 5, 
+      title: 'Variation 05: The Dual Anchor', 
+      desc: 'Maintains the symmetry of Variation 2, but introduces a second terracotta dot. The two dots elegantly symbolize the dual nature of the brand: "Bistro" and "Social".', 
+      component: <Var5 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 6, 
+      title: 'Variation 06: The Open Boundary', 
+      desc: 'The brass ring intentionally breaks to allow the "M" to sit on the threshold. This subtle opening symbolizes an inclusive, welcoming environment—"Milwaukee\'s living room".', 
+      component: <Var6 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 7, 
+      title: 'Variation 07: The Open Anchor', 
+      desc: 'Combines the best of Variations 5 and 6. Features the intentional boundary gap on the right for the monogram, seamlessly paired with the dual terracotta dots on the left.', 
+      component: <Var7 />, 
+      layout: 'vertical' 
+    },
+    { 
+      id: 8, 
+      title: 'Variation 08: The Dual Threshold', 
+      desc: 'The brass ring is opened on both sides—creating perfect negative space symmetry. The monogram anchors the right threshold, while the terracotta dot anchors the left.', 
+      component: <Var8 />, 
+      layout: 'vertical' 
     }
-    return (
-      <SvgWrap>
-        <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-        {dots}
-        <path d="M 65 75 L 65 45 L 80 60 L 95 45 L 95 75" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
-      </SvgWrap>
-    );
-  };
-
-  const Mesh2 = () => {
-    const dots: React.ReactElement[] = [];
-    for(let i=0; i<60; i++) {
-       const a = Math.random() * Math.PI * 2;
-       const r = Math.random() * 42;
-       const cx = 50 + r * Math.cos(a);
-       const cy = 50 + r * Math.sin(a);
-       const opacityMult = Math.max(0.1, 1.2 - (cx / 100));
-       dots.push(<circle key={i} cx={cx} cy={cy} r={Math.random()*1.5+0.5} fill={Math.random()>0.5?colors.brass:colors.terracotta} opacity={(Math.random()*0.8 + 0.2) * opacityMult} />);
-    }
-    return (
-      <SvgWrap>
-        <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-        {dots}
-        <ellipse cx="50" cy="55" rx="42" ry="8" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" transform="rotate(-20 50 55)" />
-        <path d="M 5 75 L 5 45 L 20 60 L 35 45 L 35 75" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
-      </SvgWrap>
-    );
-  };
-
-  const Mesh3 = () => {
-    const nodes = [[30, 40], [45, 25], [65, 35], [55, 60], [35, 70]];
-    const dots: React.ReactElement[] = [];
-    for(let i=0; i<20; i++) {
-       const a = Math.random() * Math.PI * 2;
-       const r = Math.random() * 40;
-       dots.push(<circle key={`star${i}`} cx={50+r*Math.cos(a)} cy={50+r*Math.sin(a)} r={0.8} fill={colors.brass} opacity="0.8" />);
-    }
-    return (
-      <SvgWrap>
-        <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-        <path d="M 30 40 L 45 25 L 65 35 L 55 60 L 35 70 Z" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
-        <path d="M 45 25 L 55 60" fill="none" stroke={currentText} strokeWidth="0.5" opacity="0.3" />
-        {nodes.map((pt, i) => (
-          <circle key={`node${i}`} cx={pt[0]} cy={pt[1]} r={2} fill={colors.terracotta} />
-        ))}
-        {dots}
-        <path d="M 70 80 L 70 60 L 80 70 L 90 60 L 90 80" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
-      </SvgWrap>
-    );
-  };
-
-  const Mesh4 = () => (
-    <SvgWrap>
-      <path d="M 20 90 L 20 40 A 30 30 0 0 1 80 40 L 80 90" fill="none" stroke={colors.brass} strokeWidth="1.5" />
-      <line x1="10" y1="90" x2="90" y2="90" stroke={currentText} strokeWidth="1" />
-      <path d="M 30 75 L 50 60 L 70 75" fill="none" stroke={colors.terracotta} strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M 30 85 L 50 70 L 70 85" fill="none" stroke={colors.terracotta} strokeWidth="1.5" strokeLinejoin="round" opacity="0.5" />
-      <path d="M 40 50 L 40 30 L 50 40 L 60 30 L 60 50" fill="none" stroke={currentText} strokeWidth="1.5" strokeLinejoin="miter" />
-    </SvgWrap>
-  );
-
-  const Mesh5 = () => (
-    <SvgWrap>
-      <circle cx="50" cy="50" r="42" fill={colors.midnight} />
-      <circle cx="50" cy="50" r="48" fill="none" stroke={colors.brass} strokeWidth="0.5" strokeDasharray="2 4" />
-      <g opacity="0.6">
-        <rect x="25" y="15" width="1" height="70" fill={colors.brass} />
-        <rect x="35" y="10" width="1" height="80" fill={colors.brass} />
-        <rect x="45" y="5" width="1" height="90" fill={colors.terracotta} />
-        <rect x="55" y="5" width="1" height="90" fill={colors.terracotta} />
-        <rect x="65" y="10" width="1" height="80" fill={colors.brass} />
-        <rect x="75" y="15" width="1" height="70" fill={colors.brass} />
-      </g>
-      <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
-    </SvgWrap>
-  );
-
-  const Mesh6 = () => (
-    <SvgWrap>
-      <circle cx="50" cy="50" r="45" fill="none" stroke={colors.brass} strokeWidth="1.5" />
-      <circle cx="50" cy="50" r="40" fill={colors.midnight} opacity="0.9" />
-      <defs>
-        <clipPath id="innerPlate"><circle cx="50" cy="50" r="40" /></clipPath>
-      </defs>
-      <g clipPath="url(#innerPlate)">
-        <line x1="20" y1="10" x2="20" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
-        <line x1="30" y1="10" x2="30" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
-        <line x1="40" y1="10" x2="40" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
-        <line x1="50" y1="10" x2="50" y2="90" stroke={colors.terracotta} strokeWidth="2" />
-        <line x1="60" y1="10" x2="60" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />
-        <line x1="70" y1="10" x2="70" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.6" />
-        <line x1="80" y1="10" x2="80" y2="90" stroke={colors.brass} strokeWidth="1.5" opacity="0.4" />
-        <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.midnight} strokeWidth="5" strokeLinejoin="round" />
-        <path d="M 30 65 L 30 35 L 50 50 L 70 35 L 70 65" fill="none" stroke={colors.lightBg} strokeWidth="1.5" strokeLinejoin="round" />
-      </g>
-    </SvgWrap>
-  );
-
-  const Mesh7 = () => (
-    <SvgWrap>
-      <circle cx="50" cy="50" r="44" fill={colors.midnight} stroke={colors.brass} strokeWidth="1" />
-      {[...Array(24)].map((_, i) => (
-        <line key={`sunburst${i}`} x1="50" y1="50" x2={50 + 38 * Math.cos((i * 15 * Math.PI) / 180)} y2={50 + 38 * Math.sin((i * 15 * Math.PI) / 180)} stroke={colors.brass} strokeWidth="0.5" opacity="0.3" />
-      ))}
-      <circle cx="50" cy="50" r="12" fill={currentBg} stroke={colors.terracotta} strokeWidth="1" />
-      <path d="M 44 54 L 44 46 L 50 50 L 56 46 L 56 54" fill="none" stroke={currentText} strokeWidth="1" strokeLinejoin="miter" />
-    </SvgWrap>
-  );
-
-  const Mesh8 = () => (
-    <SvgWrap>
-      <circle cx="50" cy="50" r="45" fill={colors.midnight} />
-      {[...Array(36)].map((_, i) => {
-        const angle = i * 10 * Math.PI / 180;
-        return <line key={`flute${i}`} x1={50 + 38 * Math.cos(angle)} y1={50 + 38 * Math.sin(angle)} x2={50 + 45 * Math.cos(angle)} y2={50 + 45 * Math.sin(angle)} stroke={colors.brass} strokeWidth="1.5" opacity="0.8" />;
-      })}
-      <circle cx="50" cy="50" r="36" fill="none" stroke={currentBg} strokeWidth="2" />
-      <circle cx="50" cy="50" r="34" fill="none" stroke={colors.brass} strokeWidth="0.5" />
-      <path d="M 40 55 L 40 40 L 50 50 L 60 40 L 60 55" fill="none" stroke={colors.lightBg} strokeWidth="2" strokeLinejoin="round" />
-    </SvgWrap>
-  );
-
-  const concepts: Array<{ id: number | string; title: string; desc: string; component: React.ReactNode; layout: 'horizontal' | 'vertical'; }> = [
-    { id: 2,    title: 'Concept 02: Scattered Mosaic',       desc: 'The original favorite: Dozens of distinct, scattered points forming a unified sphere.',                                                                                         component: <L2 />,    layout: 'vertical' },
-    { id: 31,   title: 'Concept 31: Empty Canvas',           desc: 'The original favorite: A massive, thin circle with a pristine monogram pushed to the edge.',                                                                                    component: <L31 />,   layout: 'vertical' },
-    { id: 20,   title: 'Concept 20: Perfect Plate',          desc: 'The original favorite: Subtle, culinary-focused, and highly elevated Michelin-star feel.',                                                                                      component: <L20 />,   layout: 'vertical' },
-    { id: 21,   title: 'Concept 21: Fluted Glass',           desc: 'The original favorite: Inspired by premium fluted bistro glassware and Cathedral organs.',                                                                                      component: <L21 />,   layout: 'vertical' },
-    { id: 'F1', title: 'Fusion 1: The Stardust Canvas',      desc: 'Meshing 2 & 31. The massive canvas ring holds elegant scattered dots inside, while the signature monogram rests beautifully on the right boundary.',                           component: <Mesh1 />, layout: 'vertical' },
-    { id: 'F2', title: 'Fusion 2: The Orbital Monogram',     desc: 'Meshing 2 & 31. Mirroring the elegance of Fusion 1, the monogram anchors the left boundary. The twist: an ethereal celestial orbit sweeps through the stardust.',             component: <Mesh2 />, layout: 'vertical' },
-    { id: 'F3', title: 'Fusion 3: The Constellation Canvas', desc: 'Meshing 2 & 31. The vast empty canvas houses a delicate, connected network of stardust—evoking a global constellation—anchored by an elegant edge monogram.',                  component: <Mesh3 />, layout: 'vertical' },
-    { id: 'F4', title: 'Fusion 4: The Horizon Weaver',       desc: 'An architectural archway housing a delicate, woven chevron motif that represents the connection of diverse cultures.',                                                          component: <Mesh4 />, layout: 'vertical' },
-    { id: 'F5', title: 'Fusion 5: The Fluted Midnight Plate',desc: 'Meshing 20 & 21. The dark plate is overlaid with striking architectural flutes, allowing the plate monogram to shine through.',                                                 component: <Mesh5 />, layout: 'vertical' },
-    { id: 'F6', title: 'Fusion 6: The Etched Glass Plate',   desc: 'Meshing 20 & 21. The plate is constructed entirely out of fluted glass, with the monogram elegantly etched into the negative space.',                                          component: <Mesh6 />, layout: 'vertical' },
-    { id: 'F7', title: 'Fusion 7: The Etched Sunburst',      desc: 'Meshing 20 & 21. A midnight plate with exquisite radiating flutes echoing a luxury watch face, centered on the signature M.',                                                  component: <Mesh7 />, layout: 'vertical' },
-    { id: 'F8', title: 'Fusion 8: The Fluted Rim',           desc: 'Meshing 20 & 21. A dark, moody plate elevated by a textured, fluted glass rim, framing an exquisite minimalist monogram at its core.',                                        component: <Mesh8 />, layout: 'vertical' },
   ];
 
   return (
     <div className="min-h-screen transition-colors duration-500 ease-in-out font-sans" style={{ backgroundColor: currentBg, color: currentText, fontFamily: fontThemes.editorial.secondary }}>
       <header className="px-8 py-16 md:py-24 max-w-7xl mx-auto flex flex-col items-center text-center">
         <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border mb-8 text-xs font-medium tracking-widest uppercase" style={{ borderColor: colors.brass, color: colors.brass }}>
-          <Globe2 size={14} /><span>The Final Curation</span>
+          <Globe2 size={14} /><span>Final Client Selection</span>
         </div>
         <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-8" style={{ fontFamily: fontThemes.editorial.primary }}>
-          The Mosaic Fusions
+          The Empty Canvas
         </h1>
         <p className="max-w-3xl text-lg md:text-xl opacity-70 font-light mb-12 leading-relaxed">
-          Stripping away the noise to focus exclusively on your favorites. Showcasing Concepts 2, 31, 20, and 21—followed immediately by our pristine, fully detailed fusions.
+          Removing all distractions to focus exclusively on your favorite concept. Here are eight micro-adjustments exploring exactly what it looks like to perfect the centered monogram.
         </p>
         <div className="flex flex-col items-center gap-6">
           <button onClick={() => setIsDarkMode(!isDarkMode)} className="flex items-center space-x-3 px-8 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:opacity-80 border" style={{ backgroundColor: isDarkMode ? 'transparent' : currentText, color: isDarkMode ? currentText : currentBg, borderColor: currentText }}>
@@ -275,22 +234,29 @@ export default function App() {
         </div>
       </header>
 
-      {/* CATEGORY I: THE ORIGINALS */}
-      <main className="px-6 pb-12 max-w-7xl mx-auto">
-        <div className="mb-10 text-center mt-6">
-          <h2 className="text-2xl font-light tracking-widest uppercase mb-3" style={{ fontFamily: fontThemes.editorial.primary }}>I. The Originals</h2>
-          <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">The unedited favorites pulled directly from the previous library.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {concepts.slice(0, 4).map((concept) => (
-            <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-xl overflow-hidden" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.01)' : '#FFFFFF' }}>
-              <div className="flex-grow flex flex-col items-center justify-center py-10">
-                <div className="flex flex-col items-center">
-                  {concept.component}
-                  <Wordmark layout="vertical" />
-                </div>
+      {/* FINAL VARIATIONS GRID */}
+      <main className="px-6 pb-24 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {concepts.map((concept) => (
+            <div key={concept.id} className="group relative rounded-xl p-8 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', ringColor: colors.brass, boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
+              <div className="flex-grow flex flex-col items-center justify-center py-8">
+                {concept.layout === 'horizontal' ? (
+                  <div className="flex flex-col xl:flex-row items-center gap-8">
+                    {concept.component}
+                    <Wordmark layout="horizontal" />
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center">
+                    {concept.component}
+                    <Wordmark layout="vertical" />
+                  </div>
+                )}
               </div>
-              <div className="mt-6 pt-6 border-t text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+              <div className="mt-6 pt-6 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>Option 0{concept.id}</span>
+                  <CheckCircle2 size={16} className="opacity-100 transition-opacity" style={{ color: colors.brass }} />
+                </div>
                 <h3 className="text-lg tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes.editorial.primary }}>{concept.title}</h3>
                 <p className="text-xs opacity-60 font-light leading-relaxed">{concept.desc}</p>
               </div>
@@ -299,39 +265,8 @@ export default function App() {
         </div>
       </main>
 
-      {/* CATEGORY II: THE FUSIONS */}
-      <main className="px-6 pb-24 max-w-7xl mx-auto">
-        <div className="mb-10 text-center mt-12">
-          <div className="inline-flex items-center justify-center space-x-2 px-3 py-1 rounded-full border mb-4 text-[0.65rem] font-bold tracking-widest uppercase" style={{ color: colors.terracotta, borderColor: colors.terracotta }}>
-            <CheckCircle2 size={12} /><span>New Designs</span>
-          </div>
-          <h2 className="text-3xl font-light tracking-widest uppercase mb-3" style={{ fontFamily: fontThemes.editorial.primary }}>II. The Fusions</h2>
-          <p className="text-sm opacity-60 font-light max-w-2xl mx-auto">High-fidelity pristine options tailored to absolute Michelin-star perfection.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {concepts.slice(4).map((concept) => (
-            <div key={concept.id} className="group relative rounded-xl p-12 flex flex-col h-full border transition-all duration-500 hover:shadow-2xl overflow-hidden ring-1" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', backgroundColor: isDarkMode ? 'rgba(255,255,255,0.02)' : '#FAFAFA', boxShadow: isDarkMode ? '0 0 20px rgba(197,160,89,0.1)' : '0 0 20px rgba(0,0,0,0.05)' }}>
-              <div className="flex-grow flex flex-col items-center justify-center py-10">
-                <div className="flex flex-col items-center">
-                  {concept.component}
-                  <Wordmark layout="vertical" />
-                </div>
-              </div>
-              <div className="mt-8 pt-8 border-t" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[0.65rem] font-bold tracking-widest uppercase opacity-40" style={{ color: colors.brass }}>{concept.id}</span>
-                  <CheckCircle2 size={16} className="opacity-100 transition-opacity" style={{ color: colors.brass }} />
-                </div>
-                <h3 className="text-xl tracking-wide mb-2 font-light" style={{ fontFamily: fontThemes.editorial.primary }}>{concept.title}</h3>
-                <p className="text-sm opacity-60 font-light leading-relaxed">{concept.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </main>
-
       <footer className="border-t py-16 text-center" style={{ borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
-        <p className="font-light tracking-widest uppercase text-[0.65rem] opacity-50 flex items-center justify-center gap-2">Designed for The Mosaic LLC <ArrowRight size={12} /> 2026</p>
+        <p className="font-light tracking-widest uppercase text-[0.65rem] opacity-50 flex items-center justify-center gap-2">Designed for The Mosaic LLC <ArrowRight size={12}/> 2026</p>
       </footer>
     </div>
   );
