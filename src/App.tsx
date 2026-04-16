@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Moon, Sun, ArrowRight, CheckCircle2, Globe2 } from 'lucide-react';
 
 // --- STRICT MODE COMPLIANCE ---
