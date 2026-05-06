@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Moon, Sun, ArrowRight, CheckCircle2, Type } from 'lucide-react';
 
 // --- SHARED BRAND COLORS ---
@@ -10,8 +10,24 @@ const colors = {
   ink: '#2A0800',
 };
 
+// --- TYPESCRIPT INTERFACES ---
+interface CanvasLogoProps {
+  textCol: string;
+  brassCol: string;
+  accentCol: string;
+  className?: string;
+}
+
+interface WordmarkProps {
+  layout?: 'vertical' | 'horizontal';
+  primaryFont: string;
+  secondaryFont: string;
+  textCol: string;
+  className?: string;
+}
+
 // --- REUSABLE COMPONENTS ---
-const CanvasLogo = ({ textCol, brassCol, accentCol, className = "w-24 h-24" }) => (
+const CanvasLogo = ({ textCol, brassCol, accentCol, className = "w-24 h-24" }: CanvasLogoProps) => (
   <svg viewBox="0 0 100 100" className={className}>
     <circle cx="50" cy="50" r="45" fill="none" stroke={brassCol} strokeWidth="0.75" />
     <path d="M 65 60 L 65 40 L 75 50 L 85 40 L 85 60" fill="none" stroke={textCol} strokeWidth="1.5" strokeLinejoin="miter" />
@@ -19,7 +35,7 @@ const CanvasLogo = ({ textCol, brassCol, accentCol, className = "w-24 h-24" }) =
   </svg>
 );
 
-const Wordmark = ({ layout = 'vertical', primaryFont, secondaryFont, textCol, className = '' }) => {
+const Wordmark = ({ layout = 'vertical', primaryFont, secondaryFont, textCol, className = '' }: WordmarkProps) => {
   if (layout === 'horizontal') {
     return (
       <div className={`flex flex-col justify-center ${className}`} style={{ color: textCol }}>
